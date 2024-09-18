@@ -1,1 +1,1 @@
-web: gunicorn cs412rypetrat.wsgi
+web: gunicorn cs412.wsgi --log-file -
