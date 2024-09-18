@@ -1,0 +1,28 @@
+<html></html>
+    <head>
+        <title>Show All</title>
+        <link rel="stylesheet" href="/static/hw3Styles.css">
+    </head>
+    <body>
+        <h1> Hello World. from show_all </h1>
+
+        <div>
+            <h2>List of Quotes</h2>
+            {% for quote in quotes %}
+                <div class="quote">
+                    <p>{{ quote }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    
+        <div class="center-div">
+            <h2>List of Images</h2>
+            {% for image in images %}
+                <div class="image">
+                    <img src="{{ image }}" alt="Image" width="500" height="400">
+                </div>
+            {% endfor %}
+        </div>
+
+    </body>
+</html>

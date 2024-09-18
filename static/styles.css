@@ -1,0 +1,74 @@
+/* changes background color */
+body {
+    background-color: #7daeda;
+}
+
+/* changes font and color of page text */
+body {
+    font-family: 'Arial', sans-serif;
+    color: #ffffff;
+    font-size: 20px;
+    
+}
+
+/* changes the font and color of specific element groups h2 & h3 */
+h1 {
+    font-family: 'Georgia', sans-serif; 
+    color: #535353;
+    font-size: 40px;
+    text-align: center;
+}
+
+/* changes the font and color of specific element groups h2 & h3 */
+h2, h3 {
+    font-family: 'Georgia', sans-serif; 
+    color: #ffffff;
+    text-align: center;
+}
+
+/* changes the font and color of hyperlinks */
+a {
+    font-family: 'Arial', sans-serif;
+    color: #1e90ff; 
+}
+
+/* changes the font and color of hyperlinks when hovered*/
+a:hover {
+    font-family: 'Arial', sans-serif;
+    color: #ffffff;
+}
+
+/* defines centering of the tables to the middle of the page */
+table {
+    border-collapse: collapse; 
+    margin: auto; 
+}
+
+/* defines the padding within table cells */
+td {
+    padding: 10px; 
+}
+
+/* Navbar styling */
+.navbar {
+    background-color: #333;
+    padding: 1rem;
+}
+.navbar-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+.nav-item {
+    margin: 0 1rem;
+}
+.nav-item a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.2rem;
+}
+.nav-item a:hover {
+    color: #ddd;
+}
