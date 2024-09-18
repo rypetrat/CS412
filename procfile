@@ -1,1 +1,1 @@
-web: gunicorn cs412.wsgi
+web: gunicorn cs412rypetrat.wsgi
