@@ -1,0 +1,18 @@
+{% load static %}
+<html>
+    <head>
+        <link rel="stylesheet" href="/static/hw4Styles.css">
+    </head>
+    <body>
+        <nav class="navbar">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a href="main">Home</a></li>
+                <li class="nav-item"><a href="order">Order</a></li>
+            </ul>
+        </nav>
+        <div>
+            {% block content %}
+            {% endblock %}
+        </div>
+    </body>
+</html>

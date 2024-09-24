@@ -1,0 +1,95 @@
+<head>
+    <title>Order Form</title>   
+</head>
+
+{% extends 'restaurant/base.html' %}
+{% block content %}
+<div>
+    <h1>Mackenzie's Order Form</h1>
+    <form action="{% url 'submit' %}" method="POST">
+        {% csrf_token %}
+        <!-- Main menu items -->
+        <tr>
+            <td>
+                <h2><label>Menu Items:</label></h2>
+                <label class="custom-checkbox">
+                <input type="checkbox" id="pork sausages" name="Food" class="checkbox-input" value="Pork Sausages">
+                <span class="checkbox-mark"></span> Pork Sausages, $15.99 </label> <br>
+
+                <label class="custom-checkbox">
+                <input type="checkbox" id="shrimp alfredo" name="Food" class="checkbox-input" value="Shrimp Alfredo">
+                <span class="checkbox-mark"></span> Shrimp Alfredo, $13.99 </label> <br>
+                
+                <label class="custom-checkbox">
+                <input type="checkbox" id="calamari" name="Food" class="checkbox-input" value="Calamari">
+                <span class="checkbox-mark"></span> Calamari, $10.99 </label> <br>
+                
+                <label class="custom-checkbox">
+                <input type="checkbox" id="spaghetti & meatballs" name="Food" class="checkbox-input" value="Spaghetti & Meatballs">
+                <span class="checkbox-mark"></span> Spaghetti & Meatballs, $14.99 </label> <br>
+            </td>
+        </tr>
+
+        <!-- Pizza & toppings -->
+        <tr>
+            <td>
+                <label class="custom-checkbox">
+                    <input type="checkbox" name="Food" class="checkbox-input" value="Pizza" id="pizza">
+                    <span class="checkbox-mark"></span> Pizza, $11.99 </label> <br>
+
+                <div id="topping-options" style="display:none;">
+                    <h3>Select Toppings:</h3>
+                    <label class="custom-checkbox">
+                        <input type="checkbox" name="toppings" class="checkbox-input" value="Pepperoni">
+                        <span class="checkbox-mark"></span> Pepperoni </label> <br>
+                    <label class="custom-checkbox">
+                        <input type="checkbox" name="toppings" class="checkbox-input" value="Mushrooms">
+                        <span class="checkbox-mark"></span> Mushrooms </label> <br>
+                    <label class="custom-checkbox">
+                        <input type="checkbox" name="toppings" class="checkbox-input" value="Onions">
+                        <span class="checkbox-mark"></span> Onions </label> <br>
+                    <label class="custom-checkbox">
+                        <input type="checkbox" name="toppings" class="checkbox-input" value="Olives">
+                        <span class="checkbox-mark"></span> Olives </label> <br>
+                    <label class="custom-checkbox">
+                        <input type="checkbox" name="toppings" class="checkbox-input" value="Green Peppers">
+                        <span class="checkbox-mark"></span> Green Peppers </label> <br>
+                </div>
+            </td>
+        </tr>
+
+        <!-- Daily special menu item -->
+        <tr>
+            <td>
+                <br><label><h2>Daily Special</h2></label>
+                <label class="custom-checkbox">
+                    <input type="checkbox" name="daily" class="checkbox-input" value="{{ selected_daily_special }}">
+                    <span class="checkbox-mark"></span> {{ selected_daily_special }}
+                </label> <br>
+            </td>
+        </tr>
+
+        <!-- Customer Information -->
+        <br><label><h2>Customer Information</h2></label>
+        Name: <input type="text" name="name"> <br>
+        Phone Number: <input type="text" name="phone"> <br>
+        Email: <input type="text" name="email"> <br>
+
+        <!-- Special Instructions -->
+        <tr>
+            <td>
+                <br><label><h2>Special Instructions</h2></label>
+                <textarea name="Special_Instructions" rows="4" cols="50" placeholder="Enter any special instructions..."></textarea>        
+            </td>
+        </tr>
+
+        <br><input type="submit">
+    </form>
+</div>
+<script>
+    // Show/Hide topping options based on Pizza checkbox
+    document.getElementById('pizza').addEventListener('change', function() {
+        document.getElementById('topping-options').style.display = this.checked ? 'block' : 'none';
+    });
+</script>
+{% endblock %}

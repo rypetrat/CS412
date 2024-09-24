@@ -1,0 +1,39 @@
+{% extends 'restaurant/base.html' %}
+{% block content %}
+<head>
+    <title>Confirmation</title>
+    <link rel="stylesheet" href="/static/hw4Styles.css"> 
+</head>
+<div>
+<h1>Order Confirmation!</h1>
+    <div>
+        <p>
+            Hey, {{name}} your order is confirmed and will be ready for pickup at approximately {{ready_time}}.
+        </p> 
+    
+        <h2>
+            Order details
+        </h2>
+        <p>
+            {% if daily_special %}{{ daily_special }},{% else %}{% endif %} {{ selected_food_items|join:", " }}{% if 'Pizza' in selected_food_items %} with toppings: {{ selected_toppings|join:", " }}.{% endif %}
+        </p>
+        <h2>
+            Special Instructions
+        </h2>
+        <p>
+            {% if special_instructions %}{{ special_instructions }}{% else %}N/A{% endif %}
+            
+        </p>
+        <h2>
+            Your Information
+        </h2>
+        <p>
+            <p>Phone: {{phone}}</p> 
+            <p>Email: {{email}}</p>
+        </p>
+    </div>
+    
+
+
+</div>
+{% endblock %}

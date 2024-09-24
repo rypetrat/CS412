@@ -1,0 +1,259 @@
+/* changes background color */
+body {
+    background-color: #7daeda;
+}
+
+/* changes font and color of page text */
+body {
+    font-family: 'Arial', sans-serif;
+    color: #ffffff;
+    font-size: 20px;
+    text-align: center;
+    
+}
+
+/* changes the font and color of specific element groups h2 & h3 */
+h1 {
+    font-family: 'Georgia', sans-serif; 
+    color: #000000;
+    font-size: 40px;
+    text-align: center;
+}
+
+/* changes the font and color of specific element group h2 */
+h2 {
+    font-family: 'Georgia', sans-serif; 
+    color: #ffffff;
+    text-align: center;
+}
+
+h3 {
+    font-family: 'Georgia', sans-serif; 
+    color: #535353;
+    text-align: center;
+}
+
+/* changes the font and color of hyperlinks */
+a {
+    font-family: 'Arial', sans-serif;
+    color: #1e90ff; 
+}
+
+/* changes the font and color of hyperlinks when hovered*/
+a:hover {
+    font-family: 'Arial', sans-serif;
+    color: #ffffff;
+}
+
+/* defines centering of the tables to the middle of the page */
+table {
+    border-collapse: collapse; 
+    margin: auto; 
+}
+
+/* defines the padding within table cells */
+td {
+    padding: 10px; 
+}
+
+/* defines the styles for the textboxes */
+.styled-textbox {
+    width: 300px; 
+    padding: 10px; 
+    border: 2px solid #1e90ff; 
+    border-radius: 5px; 
+    font-size: 16px; 
+    color: #333; 
+    background-color: #f9f9f9; 
+    outline: none;
+}
+.styled-textbox:focus {
+    border-color: #333; 
+}
+
+/* defines the styles for the dropdown menu */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+.dropdown-button {
+    background-color: #ffffff;
+    color: white; 
+    padding: 10px; 
+    border: 2px solid #1e90ff; 
+    border-radius: 5px;
+    font-size: 16px; 
+    color: #333;
+    cursor: pointer;
+    outline: none;
+}
+
+/* defines the styles for the radio buttons */
+.custom-radio {
+    display: inline-block; 
+    position: relative; 
+    padding-left: 30px; 
+    margin-bottom: 5px; 
+    cursor: pointer; 
+    font-size: 16px; 
+    user-select: none; 
+}
+.radio-input {
+    position: absolute; 
+    opacity: 0; 
+    cursor: pointer; 
+}
+.radio-mark {
+    position: absolute; 
+    top: 50%; 
+    left: 0; 
+    width: 20px; 
+    height: 20px; 
+    background-color: white; 
+    border: 2px solid #1e90ff; 
+    border-radius: 50%; 
+    transform: translateY(-50%); 
+    transition: background-color 0.3s;
+}
+.radio-mark::after {
+    content: ""; 
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    width: 12px; 
+    height: 12px; 
+    background-color: #1e90ff; 
+    border-radius: 50%; 
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.2s;
+}
+.radio-input:checked + .radio-mark::after {
+    transform: translate(-50%, -50%) scale(1); 
+}
+
+/* defines styling for the checkboxes */
+.custom-checkbox {
+    display: inline-block; 
+    position: relative; 
+    padding-left: 30px; 
+    margin-bottom: 5px; 
+    cursor: pointer; 
+    font-size: 16px; 
+}
+.checkbox-input {
+    position: absolute; 
+    opacity: 0; 
+    cursor: pointer; 
+}
+.checkbox-mark {
+    position: absolute; 
+    top: 50%; 
+    left: 0; 
+    width: 20px; 
+    height: 20px; 
+    background-color: white; 
+    border: 2px solid #1e90ff;
+    border-radius: 4px; 
+    transform: translateY(-50%); 
+    transition: background-color 0.3s, border-color 0.3s; 
+}
+.checkbox-mark::after {
+    content: "";
+    position: absolute; 
+    left: 5px; 
+    top: 1px; 
+    width: 7px; 
+    height: 12px; 
+    border: solid #1e90ff; 
+    border-width: 0 2px 2px 0; 
+    transform: rotate(45deg) scale(0); 
+    transition: transform 0.2s ease; 
+}
+.checkbox-input:checked + .checkbox-mark::after {
+    transform: rotate(45deg) scale(1); 
+}
+
+/* defines the style of the submit button */
+.submit-button {
+    background-color: #1e90ff;
+    color: white; 
+    padding: 12px 24px; 
+    border: none;
+    border-radius: 5px; 
+    font-size: 16px; 
+    font-weight: bold; 
+    cursor: pointer; 
+    transition: background-color 0.3s, transform 0.2s; 
+}
+.submit-button:hover {
+    background-color: #1d75d4; 
+    transform: scale(1.05);
+}
+
+.center-div {
+    text-align: center; 
+}
+
+div {
+    margin: 0 auto;
+    width: fit-content;
+}
+
+/* Navbar styling */
+/* changes background color */
+body {
+    background-color: #7daeda;
+}
+
+/* changes font and color of page text */
+body {
+    font-family: 'Arial', sans-serif;
+    color: #535353;
+    font-size: 20px;
+    
+}
+
+/* changes the font and color of specific element groups h2 & h3 */
+h1 {
+    font-family: 'Georgia', sans-serif; 
+    color: #535353;
+    font-size: 40px;
+    text-align: center;
+}
+
+/* changes the font and color of specific element groups h2 & h3 */
+p, h1, h2, h3 {
+    font-family: 'Georgia', sans-serif; 
+    color: #535353;
+    text-align: center;
+}
+
+/* centering for image */
+.center-div {
+    text-align: center; 
+}
+
+
+/* Navbar styling */
+.navbar {
+    background-color: #333;
+    padding: 1rem;
+}
+.navbar-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+.nav-item {
+    margin: 0 1rem;
+}
+.nav-item a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.2rem;
+}
+.nav-item a:hover {
+    color: #ddd;
+}

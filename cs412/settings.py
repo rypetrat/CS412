@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'hw', # New Apps below
-    'quotes',
+    'quotes', # HW3
+    'formdata',
+    'restaurant', #HW4
 
 ]
 
