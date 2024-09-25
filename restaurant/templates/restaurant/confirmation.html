@@ -17,6 +17,10 @@
         <p>
             {% if daily_special %}{{ daily_special }},{% else %}{% endif %} {{ selected_food_items|join:", " }}{% if 'Pizza' in selected_food_items %} with toppings: {{ selected_toppings|join:", " }}.{% endif %}
         </p>
+        <h2>Total Price</h2>
+        <p>
+            ${{ total_price }}
+        </p>
         <h2>
             Special Instructions
         </h2>

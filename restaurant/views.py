@@ -60,6 +60,24 @@ def submit(request):
         # Format the ready time for display in 12-hour format
         formatted_ready_time = ready_time.strftime("%I:%M %p")
 
+        # Define the prices for food items
+        prices = {
+            'Pork Sausages': 15.99,
+            'Shrimp Alfredo': 13.99,
+            'Calamari': 10.99,
+            'Spaghetti & Meatballs': 14.99,
+            'Pizza': 11.99,
+        }
+
+        # Calculate total price
+        total_price = sum(prices[item] for item in selected_food_items if item in prices)
+
+        # If the daily special is selected, add its price to the total
+        if daily_special:
+            total_price += 16.99
+
+        total_price = round(total_price, 2)
+
         # Update the context with the submitted data
         context.update({
             'selected_food_items': selected_food_items,
@@ -70,6 +88,7 @@ def submit(request):
             'email': email,
             'special_instructions': special_instructions,
             'ready_time': formatted_ready_time,
+            'total_price': total_price,
         })
     return render(request, template_name, context=context)
 
