@@ -1,1 +1,1 @@
-http://127.0.0.1:8000/restaurant/main
+https://cs412rypetrat-96037fe28e3c.herokuapp.com/restaurant/main
