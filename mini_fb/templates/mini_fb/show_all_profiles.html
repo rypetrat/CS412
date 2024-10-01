@@ -1,0 +1,19 @@
+{% extends 'mini_fb/base.html' %}
+{% block content %}
+
+<main class="grid-container">
+    {% for p in profiles %}
+    <article>
+        <div>
+            <h2>{{p.firstName}} {{p.lastName}}</h2>
+            {% if p.ProfileImg %}
+            <img src="{{p.ProfileImg}}" alt="{{p.ProfileImg}}" height="500">
+            {% endif %} <br>
+            <h3>Location: <strong>{{p.city}}</strong> <br>
+            Email: <strong>{{p.emailAddr}}</strong></h3> 
+            
+        </div>
+    </article>
+    {% endfor %}
+</main>
+{% endblock %}

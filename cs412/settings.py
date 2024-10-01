@@ -37,10 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'hw', # New Apps below
-    'quotes', # HW3
-    'formdata',
-    'restaurant', #HW4
+    'hw', # example
+    'quotes', # HW2
+    'formdata', # example
+    'restaurant', # HW3
+    'blog', # example
+    'mini_fb', # HW4
 
 ]
 
