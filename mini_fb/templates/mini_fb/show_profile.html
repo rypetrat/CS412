@@ -1,0 +1,32 @@
+{% extends 'mini_fb/base.html' %}
+
+{% block content %}
+<main class="grid-container">
+    <div>
+        <form action="{% url 'create_status' profile.pk %}" method="get">
+            <button type="submit" class="button">Create Status Message</button>
+        </form>
+    </div>
+    <article class="featured">
+        <img class="profile-img" src="{{ profile.ProfileImg }}" alt="{{ profile.image_url }}">
+        <div>
+            <h2>{{ profile.firstName }} {{ profile.lastName }}</h2>
+            <strong>From: {{ profile.city }}</strong><br>
+            <strong>Email Address: {{ profile.emailAddr }}</strong>
+        </div>
+    </article>
+
+    <div>
+        <h2>Status Messages:</h2>
+        {% for p in profile.get_statusMessages %}
+        <article>
+            <div>
+                <strong>"{{ p.message }}", at {{ p.timestamp }}</strong><br><br>
+            </div>
+        </article>
+        {% empty %}
+        <p>No status messages to display.</p> 
+        {% endfor %}
+    </div>
+</main>
+{% endblock %}

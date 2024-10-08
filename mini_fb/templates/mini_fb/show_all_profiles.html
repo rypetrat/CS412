@@ -5,9 +5,14 @@
     {% for p in profiles %}
     <article>
         <div>
-            <h2>{{p.firstName}} {{p.lastName}}</h2>
+            <a href="{% url 'profile' p.pk %}">
+                <h2>{{p.firstName}} {{p.lastName}}</h2>
+            </a>
             {% if p.ProfileImg %}
-            <img src="{{p.ProfileImg}}" alt="{{p.ProfileImg}}" height="500">
+            <a href="{% url 'profile' p.pk %}">
+                <img src="{{p.ProfileImg}}" alt="{{p.ProfileImg}}" height="500" width="500">
+            </a>
+            
             {% endif %} <br>
             <h3>Location: <strong>{{p.city}}</strong> <br>
             Email: <strong>{{p.emailAddr}}</strong></h3> 

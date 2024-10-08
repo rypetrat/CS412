@@ -2,11 +2,17 @@
 <html>
     <head>
         <title>Blog</title>
-        <link rel="stylesheet" href="/static/styles-blog.css">
+        <link rel="stylesheet" href="{% static 'styles-blog.css' %}">
     </head>
     <body>
         <header>
             <h1>Blog</h1>
+            <nav>
+                <ul>
+                    <li><a href="{% url 'show_all' %}">Show All</a></li>
+                    <li><a href="{% url 'random' %}">Random</a></li>
+                </ul>
+            </nav>
         </header>
     
     {% block content %}

@@ -1,0 +1,38 @@
+<head>
+    <title>Create Profile</title>   
+</head>
+
+{% extends 'mini_fb/base.html' %}
+{% block content %}
+<div>
+    <h1>Create New Profile</h1>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <!-- Display form fields with labels -->
+        <div>
+            <label for="id_first_name">First Name:</label>
+            {{ form.firstName }}
+        </div>
+        <div>
+            <label for="id_last_name">Last Name:</label>
+            {{ form.lastName }}
+        </div>
+        <div>
+            <label for="id_city">City:</label>
+            {{ form.city }}
+        </div>
+        <div>
+            <label for="id_email">Email:</label>
+            {{ form.emailAddr }}
+        </div>
+        <div>
+            <label for="id_imageURL">Profile Image URL:</label>
+            {{ form.ProfileImg }}
+        </div>
+        <!-- Submit button -->
+        <div>
+            <input type="submit" value="Create Profile">
+        </div>
+    </form>
+</div>
+{% endblock %}
