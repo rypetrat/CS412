@@ -1,22 +1,23 @@
 {% load static %}
 <html>
     <head>
-        <title>Blog</title>
+        <title>Our Blog</title>
         <link rel="stylesheet" href="{% static 'styles-blog.css' %}">
     </head>
     <body>
-        <header>
-            <h1>Blog</h1>
-            <nav>
-                <ul>
-                    <li><a href="{% url 'show_all' %}">Show All</a></li>
-                    <li><a href="{% url 'random' %}">Random</a></li>
-                </ul>
-            </nav>
-        </header>
-    
+
+    <nav>
+        <ul>
+            <!-- use the scriptlet URL function to look up a URL by name -->
+            <a href="{% url 'show_all' %}">Show All</a>
+            <a href="{% url 'random' %}">Random</a>
+            <a href="{% url 'create_article' %}">Create Article</a> 
+        </ul>
+    </nav>
+
     {% block content %}
-    {% endblock %}    
-  
+    <!-- put the interesting (specific stuff) here -->
+    {% endblock %}
+
     </body>
 </html>
