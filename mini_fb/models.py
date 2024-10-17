@@ -8,7 +8,7 @@ class Profile(models.Model):
     lastName = models.CharField(max_length=100, blank=False)
     city = models.CharField(max_length=100, blank=False)
     emailAddr = models.CharField(max_length=100, blank=False)
-    ProfileImg = models.URLField(blank=True) 
+    ProfileImg = models.URLField(blank=True)
     
     def __str__(self):
         '''Return a string representation of this Profile object.'''
@@ -34,3 +34,15 @@ class StatusMessage(models.Model):
     def __str__(self):
         '''Return a string representation of this Status Message object.'''
         return f'{self.message}'
+    
+    def get_images(self):
+        '''Return all images associated with this Status Message.'''
+        return Image.objects.filter(status_message=self)
+    
+class Image(models.Model):
+    status_message = models.ForeignKey("StatusMessage", on_delete=models.CASCADE, related_name='images')
+    image_file = models.ImageField(upload_to='images/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Image for {self.status_message.message}"

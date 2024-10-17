@@ -6,15 +6,18 @@
 {% block content %}
 <div>
     <h1>Post a new status message</h1>
-    <form action="" method="POST">
+    <form action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        <!-- Display form fields with labels -->
         <div>
             <label for="id_message">Status Message:</label>
             {{ form.message }}
         </div>
+
+        <div>
+            <label for="id_images">Upload Images:</label>
+            <input type="file" name="images" multiple>
+        </div>
         
-        <!-- Submit button -->
         <div>
             <input type="submit" value="Create Status Message">
         </div>

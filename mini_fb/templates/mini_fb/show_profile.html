@@ -2,9 +2,12 @@
 
 {% block content %}
 <main class="grid-container">
-    <div>
+    <div style="display: flex; justify-content: center; gap: 10px;">
         <form action="{% url 'create_status' profile.pk %}" method="get">
             <button type="submit" class="button">Create Status Message</button>
+        </form>
+        <form action="{% url 'update_profile' profile.pk %}" method="get">
+            <button type="submit" class="button">Update Profile</button>
         </form>
     </div>
     <article class="featured">
@@ -21,8 +24,18 @@
         {% for p in profile.get_statusMessages %}
         <article>
             <div>
-                <strong>"{{ p.message }}", at {{ p.timestamp }}</strong><br><br>
-            </div>
+                <strong>"{{ p.message }}", at {{ p.timestamp }}</strong>
+                <a class="button" href="{% url 'delete_status' p.pk %}" style="font-size: 0.8em; padding: 5px 10px;">Delete</a>
+                <a class="button" href="{% url 'update_status' p.pk %}" style="font-size: 0.8em; padding: 5px 10px;">Update</a>
+                {% if p.get_images %}
+                    <div>
+                        
+                        {% for img in p.get_images %}
+                        <img src="{{ img.image_file.url }}" alt="Image for status message" style="max-width: 200px; max-height: 200px;">
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div><br><br>
         </article>
         {% empty %}
         <p>No status messages to display.</p> 
