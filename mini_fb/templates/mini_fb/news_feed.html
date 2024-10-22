@@ -5,13 +5,19 @@
 
 <div>
     {% for message in news_feed %}
-        <div class="status-message">
+        <div class="status-message" style="margin-bottom: 20px;">
             <img src="{{ message.profile.ProfileImg }}" 
                  alt="{{ message.profile.firstName }}'s Profile Picture" 
-                 style="width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;">
+                 style="width: 100px; height: 100px; border-radius: 50%; margin-right: 10px; border: 2px solid white;">
             <strong>{{ message.profile.firstName }} {{ message.profile.lastName }}</strong>
-            <p>{{ message.message }}</p>
-            <p><em>{{ message.timestamp }}</em></p>
+            <div style="text-align: center; margin-top: 10px;">
+                {% for image in message.images.all %}
+                    <img src="{{ image.image_file.url }}" 
+                         alt="Image in {{ message.profile.firstName }}'s status" 
+                         style="max-width: 400px; max-height: 400px; width: auto; height: auto; margin: 10px;">
+                {% endfor %}
+            </div>
+            <p>{{ message.message }} at {{ message.timestamp }}</p>
         </div>
         <hr>
     {% empty %}
