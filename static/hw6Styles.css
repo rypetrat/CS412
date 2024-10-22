@@ -60,13 +60,6 @@ article.featured {
     margin: 0 auto; /* Center the images */
 }
 
-/* article img, article.featured img {
-    width: 50%;
-    border: 4px solid #fff;
-    border-radius: 8px;
-    text-align: center;
-} */
-
 article p, article h3 {
     margin: 20px 10px;
 
@@ -137,4 +130,23 @@ nav li {
 
 .button:hover {
     background-color: #022346; /* Darker blue on hover */
+}
+
+.add-friend-button {
+    display: inline-block; /* Makes the button behave like a block element */
+    background-color: #022346; /* Different color for the add friend button */
+    color: white; /* White text */
+    padding: 10px 20px; /* Add some padding */
+    font-size: 16px; /* Increase font size */
+    font-weight: bold; /* Bold text */
+    text-align: center; /* Center text */
+    text-decoration: none; /* Remove underline from text */
+    border-radius: 5px; /* Rounded corners */
+    border: none; /* No border */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease; /* Smooth background-color transition on hover */
+}
+
+.add-friend-button:hover {
+    background-color: #333333; /* Darker shade on hover */
 }

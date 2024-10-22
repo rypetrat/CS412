@@ -1,4 +1,6 @@
+
 {% extends 'mini_fb/base.html' %}
+{% load static %}
 
 {% block content %}
 <main class="grid-container">
@@ -40,6 +42,23 @@
         {% empty %}
         <p>No status messages to display.</p> 
         {% endfor %}
+        <div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+            <a href="{% url 'news_feed' profile.pk %}" class="button">View News Feed</a>
+            <h2>Friends:</h2>
+            <ul style="list-style: none; padding: 0;">
+                {% for friend in profile.get_friends %}
+                    <li style="display: flex; align-items: center; margin-bottom: 10px;">
+                        <img src="{{ friend.ProfileImg }}" alt="{{ friend.firstName }}'s Profile Picture" style="width: 80px; height: 80px; border-radius: 50%; margin-right: 10px; border: 2px solid white;">
+                        <a href="{{ friend.get_absolute_url }}" class="button">
+                            {{ friend.firstName }} {{ friend.lastName }}
+                        </a>
+                    </li>
+                {% empty %}
+                    <li>No friends yet.</li>
+                {% endfor %}
+            </ul>
+            <a href="{% url 'friend_suggestions' profile.pk %}" class="button">View Friend Suggestions</a>
+        </div>
     </div>
 </main>
 {% endblock %}

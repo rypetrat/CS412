@@ -1,13 +1,13 @@
 # Create your views here.
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse
 from .models import *
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import *
 from .forms import *
 
 class ShowAllProfilesView(ListView):
     '''Create a subclass of ListView to display all profiles'''
-    model = Profile # retrieve objects of type Profile from the database
+    model = Profile
     template_name = 'mini_fb/show_all_profiles.html'
     context_object_name = 'profiles'
 
@@ -30,23 +30,19 @@ class CreateStatusMessageView(CreateView):
     template_name = 'mini_fb/create_status_form.html'
 
     def get_context_data(self, **kwargs):
-        # Get the context from the parent class
         context = super().get_context_data(**kwargs)
         profile_pk = self.kwargs['pk']
         context['profile'] = get_object_or_404(Profile, pk=profile_pk)
         return context
 
     def form_valid(self, form):
-        # Get the Profile object and set it on the StatusMessage
         profile_pk = self.kwargs['pk']
         profile = get_object_or_404(Profile, pk=profile_pk)
         
-        # Save the status message and commit to database
         status_message = form.save(commit=False)
         status_message.profile = profile
         status_message.save()
         
-        # Handle file upload
         files = self.request.FILES.getlist('images') 
         for file in files:
             Image.objects.create(status_message=status_message, image_file=file)
@@ -92,5 +88,37 @@ class UpdateStatusMessageView(UpdateView):
     context_object_name = 'status_message'
 
     def get_success_url(self):
-        # Redirect to the profile page after successful update
         return reverse('profile', kwargs={'pk': self.object.profile.pk})
+    
+class CreateFriendView(View):
+    def dispatch(self, request, *args, **kwargs):
+        profile_pk = kwargs['pk']
+        friend_pk = kwargs['other_pk']
+
+        profile = get_object_or_404(Profile, pk=profile_pk)
+        friend_profile = get_object_or_404(Profile, pk=friend_pk)
+
+        profile.add_friend(friend_profile)
+
+        return redirect('profile', pk=profile_pk)
+    
+class ShowFriendSuggestionsView(DetailView):
+    model = Profile
+    template_name = 'mini_fb/friend_suggestions.html'
+    context_object_name = 'profile'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        profile = self.get_object()
+        context['friend_suggestions'] = profile.get_friend_suggestions()
+        return context
+    
+class ShowNewsFeedView(DetailView):
+    model = Profile
+    template_name = 'mini_fb/news_feed.html'
+    context_object_name = 'profile'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['news_feed'] = self.object.get_news_feed()
+        return context

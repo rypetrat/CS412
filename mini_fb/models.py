@@ -1,7 +1,6 @@
 from django.db import models
 from django.urls import reverse
 
-# Create your models here.
 class Profile(models.Model):
     '''Encapsulate the idea of a profile'''
     firstName = models.CharField(max_length=100, blank=False)
@@ -19,14 +18,51 @@ class Profile(models.Model):
         statusMessages = StatusMessage.objects.filter(profile=self)
         return statusMessages
     
+    def get_friends(self):
+        friends_as_profile1 = Friend.objects.filter(profile1=self)
+        friends_as_profile2 = Friend.objects.filter(profile2=self)
+
+        friends = [friend.profile2 for friend in friends_as_profile1] + \
+                  [friend.profile1 for friend in friends_as_profile2]
+        return friends
+    
     def get_absolute_url(self):
-        # Returns the URL for a profile with its primary key
         return reverse('profile', kwargs={'pk': self.pk})
+    
+    def add_friend(self, other):
+        existing_friend = Friend.objects.filter(
+            (models.Q(profile1=self) & models.Q(profile2=other)) | 
+            (models.Q(profile1=other) & models.Q(profile2=self))
+        ).exists()
+        if not existing_friend:
+            new_friend = Friend(profile1=self, profile2=other)
+            new_friend.save()
+    
+    def get_friend_suggestions(self):
+        friend_ids = Friend.objects.filter(
+            models.Q(profile1=self) | models.Q(profile2=self)
+        ).values_list('profile1', 'profile2')
+
+        flat_friend_ids = {friend_id for pair in friend_ids for friend_id in pair}
+        flat_friend_ids.discard(self.pk)
+
+        suggested_friends = Profile.objects.exclude(pk__in=flat_friend_ids).exclude(pk=self.pk)
+
+        return suggested_friends
+    
+    def get_news_feed(self):
+        friend_ids = [friend.pk for friend in self.get_friends()]
+        all_profile_ids = [self.pk] + friend_ids
+        
+        news_feed = StatusMessage.objects.filter(
+            models.Q(profile__in=all_profile_ids)
+        ).order_by('-timestamp')
+        
+        return news_feed
 
 class StatusMessage(models.Model):
     '''Encapsulate the idea of a Status Messages on a Profile.'''
     
-    # data attributes of a Status Message:
     profile = models.ForeignKey("Profile", on_delete=models.CASCADE)
     message = models.TextField(blank=False)
     timestamp = models.DateTimeField(auto_now=True)
@@ -46,3 +82,12 @@ class Image(models.Model):
 
     def __str__(self):
         return f"Image for {self.status_message.message}"
+    
+class Friend(models.Model):
+    '''Encapsulate the idea of a Friend.'''
+    profile1 = models.ForeignKey(Profile, related_name='friend1', on_delete=models.CASCADE)
+    profile2 = models.ForeignKey(Profile, related_name='friend2', on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.profile1} & {self.profile2}"
