@@ -13,6 +13,13 @@
             <a href="{% url 'random' %}">Random</a>
             <a href="{% url 'create_article' %}">Create Article</a> 
         </ul>
+        <p>
+            {% if request.user.is_authenticated %}
+                Logged in user: {{ request.user }}.
+                {% else %}
+                Not logged in.
+            {% endif %}
+        </p>
     </nav>
 
     {% block content %}

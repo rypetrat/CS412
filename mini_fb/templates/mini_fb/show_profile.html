@@ -5,12 +5,14 @@
 {% block content %}
 <main class="grid-container">
     <div style="display: flex; justify-content: center; gap: 10px;">
-        <form action="{% url 'create_status' profile.pk %}" method="get">
-            <button type="submit" class="button">Create Status Message</button>
-        </form>
-        <form action="{% url 'update_profile' profile.pk %}" method="get">
-            <button type="submit" class="button">Update Profile</button>
-        </form>
+        {% if request.user.is_authenticated and request.user == profile.user %}
+            <form action="{% url 'create_status' profile.pk %}" method="get">
+                <button type="submit" class="button">Create Status Message</button>
+            </form>
+            <form action="{% url 'update_profile' profile.pk %}" method="get">
+                <button type="submit" class="button">Update Profile</button>
+            </form>
+        {% endif %}
     </div>
     <article class="featured">
         <img class="profile-img" src="{{ profile.ProfileImg }}" alt="{{ profile.image_url }}">
@@ -27,11 +29,12 @@
         <article>
             <div>
                 <strong>"{{ p.message }}", at {{ p.timestamp }}</strong>
-                <a class="button" href="{% url 'delete_status' p.pk %}" style="font-size: 0.8em; padding: 5px 10px;">Delete</a>
-                <a class="button" href="{% url 'update_status' p.pk %}" style="font-size: 0.8em; padding: 5px 10px;">Update</a>
+                {% if request.user.is_authenticated and request.user == profile.user %}
+                    <a class="button" href="{% url 'delete_status' p.pk %}" style="font-size: 0.8em; padding: 5px 10px;">Delete</a>
+                    <a class="button" href="{% url 'update_status' p.pk %}" style="font-size: 0.8em; padding: 5px 10px;">Update</a>
+                {% endif %}
                 {% if p.get_images %}
                     <div>
-                        
                         {% for img in p.get_images %}
                         <img src="{{ img.image_file.url }}" alt="Image for status message" style="max-width: 200px; max-height: 200px;">
                         {% endfor %}
@@ -43,7 +46,9 @@
         <p>No status messages to display.</p> 
         {% endfor %}
         <div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
-            <a href="{% url 'news_feed' profile.pk %}" class="button">View News Feed</a>
+            {% if request.user.is_authenticated and request.user == profile.user %}
+                <a href="{% url 'news_feed' profile.pk %}" class="button">View News Feed</a>
+            {% endif %}
             <h2>Friends:</h2>
             <ul style="list-style: none; padding: 0;">
                 {% for friend in profile.get_friends %}
@@ -57,7 +62,9 @@
                     <li>No friends yet.</li>
                 {% endfor %}
             </ul>
-            <a href="{% url 'friend_suggestions' profile.pk %}" class="button">View Friend Suggestions</a>
+            {% if request.user.is_authenticated and request.user == profile.user %}
+                <a href="{% url 'friend_suggestions' profile.pk %}" class="button">View Friend Suggestions</a>
+            {% endif %}
         </div>
     </div>
 </main>

@@ -8,7 +8,8 @@
     <h1>Create New Profile</h1>
     <form action="" method="POST">
         {% csrf_token %}
-        <!-- Display form fields with labels -->
+        
+        <!-- Display form fields with labels from CreateProfileForm -->
         <div>
             <label for="id_first_name">First Name:</label>
             {{ form.firstName }}
@@ -29,6 +30,22 @@
             <label for="id_imageURL">Profile Image URL:</label>
             {{ form.ProfileImg }}
         </div>
+        
+        <!-- Display form fields from UserCreationForm for user account creation -->
+        <h2>User Account Information</h2>
+        <div>
+            <label for="id_username">Username:</label>
+            {{ user_creation_form.username }}
+        </div>
+        <div>
+            <label for="id_password1">Password:</label>
+            {{ user_creation_form.password1 }}
+        </div>
+        <div>
+            <label for="id_password2">Confirm Password:</label>
+            {{ user_creation_form.password2 }}
+        </div>
+
         <!-- Submit button -->
         <div>
             <input type="submit" value="Create Profile">

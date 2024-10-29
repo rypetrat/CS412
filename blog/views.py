@@ -1,11 +1,14 @@
 from typing import Any
 import random
+from django.http import HttpRequest
+from django.http.response import HttpResponse as HttpResponse
 from django.shortcuts import render
-from django.urls import reverse ## NEW
-
+from django.urls import reverse 
 from . models import * 
-from . forms import * ## NEW
-from django.views.generic import ListView, DetailView, CreateView ## NEW
+from . forms import * 
+from django.views.generic import ListView, DetailView, CreateView
+
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # class-based view
 class ShowAllView(ListView):
@@ -14,6 +17,10 @@ class ShowAllView(ListView):
     model = Article
     template_name = 'blog/show_all.html'
     context_object_name = 'articles'
+
+    def dispatch(self, *args, **kwargs):
+        print(f"self.request.user={self.request.user}")
+        return super().dispatch(*args, **kwargs)
 
 class RandomArticleView(DetailView):
     '''Show one article selected at random.'''
@@ -41,7 +48,7 @@ class ArticleView(DetailView):
     context_object_name = "article" # note the singular name
 
 
-class CreateCommentView(CreateView):
+class CreateCommentView(LoginRequiredMixin, CreateView):
     '''a view to show/process the create comment form:
     on GET: sends back the form
     on POST: read the form data, create an instance of Comment; save to database; ??
@@ -49,6 +56,9 @@ class CreateCommentView(CreateView):
 
     form_class = CreateCommentForm
     template_name = "blog/create_comment_form.html"
+
+    def get_login_url(self) -> str:
+        return reverse('login')
 
     # what to do after form submission?
     def get_success_url(self) -> str:
@@ -92,7 +102,7 @@ class CreateCommentView(CreateView):
 
         return context
 
-class CreateArticleView(CreateView):
+class CreateArticleView(LoginRequiredMixin, CreateView):
     '''View to create a new Article instance.'''
 
     form_class = CreateArticleForm
@@ -101,6 +111,9 @@ class CreateArticleView(CreateView):
     def form_valid(self, form):
         '''Add some debugging statements.'''
         print(f'CreateArticleView.form_valid: form.cleaned_data={form.cleaned_data}')
+
+        user = self.request.user
+        form.instance.user = user
 
         # delegate work to superclass
         return super().form_valid(form)
