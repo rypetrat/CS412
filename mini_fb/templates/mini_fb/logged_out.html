@@ -1,0 +1,13 @@
+{% extends 'mini_fb/base.html' %}
+{% block content %}
+
+<div>
+    <h1>Logout Confirmation</h1>
+    <p>You have successfully logged out. Thank you for visiting!</p>
+
+    <ul>
+        <li class="logout-button"><a href="{% url 'login' %}" class="nav-link">Login</a></li>
+    </ul>
+</div>
+
+{% endblock %}

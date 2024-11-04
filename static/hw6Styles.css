@@ -112,6 +112,14 @@ nav li {
 .nav-item a:hover {
     color: #d1dedd;
 }
+.logout-button a {
+    text-decoration: none;
+    color: #808383;
+    font-size: 1.2rem;
+}
+.logout-button a:hover {
+    color: #333333;
+}
 
 .button {
     display: inline-block; /* Makes the button behave like a block element */

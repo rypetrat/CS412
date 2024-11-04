@@ -1,4 +1,7 @@
 # Create your views here.
+from typing import Any
+from django.db.models.base import Model as Model
+from django.db.models.query import QuerySet
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse
 from .models import *
@@ -31,24 +34,17 @@ class CreateProfileView(CreateView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # Add an instance of UserCreationForm to the context
         context['user_creation_form'] = UserCreationForm()
         return context
 
     def form_valid(self, form):
-        # Reconstruct the UserCreationForm instance with POST data
         user_creation_form = UserCreationForm(self.request.POST)
         
-        # Check if the UserCreationForm is valid
         if user_creation_form.is_valid():
-            # Save the User instance
             user = user_creation_form.save()
-            # Attach the User to the Profile instance
             form.instance.user = user
-            # Save the Profile instance and proceed with the default handling
             return super().form_valid(form)
         else:
-            # If UserCreationForm is invalid, re-render the page with errors
             return self.form_invalid(form)
 
 class CreateStatusMessageView(LoginRequiredMixin, CreateView):
@@ -59,26 +55,24 @@ class CreateStatusMessageView(LoginRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        profile_pk = self.kwargs['pk']
-        context['profile'] = get_object_or_404(Profile, pk=profile_pk)
+        context['profile'] = get_object_or_404(Profile, user=self.request.user)
         return context
 
     def form_valid(self, form):
-        profile_pk = self.kwargs['pk']
-        profile = get_object_or_404(Profile, pk=profile_pk)
-        
+        profile = get_object_or_404(Profile, user=self.request.user)
+
         status_message = form.save(commit=False)
         status_message.profile = profile
         status_message.save()
-        
-        files = self.request.FILES.getlist('images') 
+
+        files = self.request.FILES.getlist('images')
         for file in files:
             Image.objects.create(status_message=status_message, image_file=file)
-        
+
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('profile', kwargs={'pk': self.kwargs['pk']})
+        return reverse('profile')
     
     def get_login_url(self) -> str:
         return reverse('login')
@@ -89,8 +83,8 @@ class UpdateProfileView(LoginRequiredMixin, UpdateView):
     form_class = UpdateProfileForm
     template_name = 'mini_fb/update_profile_form.html'
 
-    def get_object(self, queryset=None):
-        return get_object_or_404(Profile, pk=self.kwargs['pk'])
+    def get_object(self):
+        return get_object_or_404(Profile, user=self.request.user)
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -100,7 +94,7 @@ class UpdateProfileView(LoginRequiredMixin, UpdateView):
         return context
 
     def get_success_url(self):
-        return reverse('profile', kwargs={'pk': self.kwargs['pk']})
+        return reverse('profile')
     
 class DeleteStatusMessageView(LoginRequiredMixin, DeleteView):
     '''View to handle the deletion of a status message.'''
@@ -109,7 +103,7 @@ class DeleteStatusMessageView(LoginRequiredMixin, DeleteView):
     context_object_name = 'status_message'
 
     def get_success_url(self):
-        return reverse('profile', kwargs={'pk': self.object.profile.pk})
+        return reverse('profile')
     
 class UpdateStatusMessageView(LoginRequiredMixin, UpdateView):
     '''View to handle updating a status message.'''
@@ -119,19 +113,21 @@ class UpdateStatusMessageView(LoginRequiredMixin, UpdateView):
     context_object_name = 'status_message'
 
     def get_success_url(self):
-        return reverse('profile', kwargs={'pk': self.object.profile.pk})
+        return reverse('profile')
     
 class CreateFriendView(LoginRequiredMixin, View):
     def dispatch(self, request, *args, **kwargs):
         profile_pk = kwargs['pk']
         friend_pk = kwargs['other_pk']
-
         profile = get_object_or_404(Profile, pk=profile_pk)
         friend_profile = get_object_or_404(Profile, pk=friend_pk)
 
         profile.add_friend(friend_profile)
 
         return redirect('profile', pk=profile_pk)
+    
+    def get_object(self, queryset=None):
+        return get_object_or_404(Profile, user=self.request.user)
     
 class ShowFriendSuggestionsView(LoginRequiredMixin, DetailView):
     model = Profile
@@ -144,6 +140,9 @@ class ShowFriendSuggestionsView(LoginRequiredMixin, DetailView):
         context['friend_suggestions'] = profile.get_friend_suggestions()
         return context
     
+    def get_object(self, queryset=None):
+        return get_object_or_404(Profile, user=self.request.user)
+    
 class ShowNewsFeedView(LoginRequiredMixin, DetailView):
     model = Profile
     template_name = 'mini_fb/news_feed.html'
@@ -153,3 +152,6 @@ class ShowNewsFeedView(LoginRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
         context['news_feed'] = self.object.get_news_feed()
         return context
+    
+    def get_object(self, queryset=None):
+        return get_object_or_404(Profile, user=self.request.user)

@@ -1,4 +1,4 @@
-{% extends 'mini_fb/base.html' %} <!-- Extend your base template if you have one -->
+{% extends 'mini_fb/base.html' %}
 
 {% block content %}
 <h2>Friend Suggestions for {{ profile.firstName }} {{ profile.lastName }}</h2>
@@ -11,7 +11,7 @@
             <a href="{{ friend.get_absolute_url }}" class="button">
                 {{ friend.firstName }} {{ friend.lastName }}'s Profile
             </a>
-            <a href="{% url 'add_friend' profile.pk friend.pk %}" class="add-friend-button" style="margin-left: 10px;">Add Friend</a>
+            <a href="{% url 'add_friend' friend.pk %}" class="add-friend-button" style="margin-left: 10px;">Add Friend</a>
         </li>
         {% empty %}
         <li>No friend suggestions available.</li>

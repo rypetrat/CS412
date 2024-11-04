@@ -1,4 +1,3 @@
-
 {% extends 'mini_fb/base.html' %}
 {% load static %}
 
@@ -6,10 +5,10 @@
 <main class="grid-container">
     <div style="display: flex; justify-content: center; gap: 10px;">
         {% if request.user.is_authenticated and request.user == profile.user %}
-            <form action="{% url 'create_status' profile.pk %}" method="get">
+            <form action="{% url 'create_status' %}" method="get">
                 <button type="submit" class="button">Create Status Message</button>
             </form>
-            <form action="{% url 'update_profile' profile.pk %}" method="get">
+            <form action="{% url 'update_profile' %}" method="get">
                 <button type="submit" class="button">Update Profile</button>
             </form>
         {% endif %}
@@ -47,7 +46,7 @@
         {% endfor %}
         <div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
             {% if request.user.is_authenticated and request.user == profile.user %}
-                <a href="{% url 'news_feed' profile.pk %}" class="button">View News Feed</a>
+                <a href="{% url 'news_feed' %}" class="button">View News Feed</a>
             {% endif %}
             <h2>Friends:</h2>
             <ul style="list-style: none; padding: 0;">
@@ -63,7 +62,7 @@
                 {% endfor %}
             </ul>
             {% if request.user.is_authenticated and request.user == profile.user %}
-                <a href="{% url 'friend_suggestions' profile.pk %}" class="button">View Friend Suggestions</a>
+                <a href="{% url 'friend_suggestions' %}" class="button">View Friend Suggestions</a>
             {% endif %}
         </div>
     </div>
