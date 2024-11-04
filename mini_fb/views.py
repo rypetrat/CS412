@@ -60,11 +60,11 @@ class CreateStatusMessageView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         profile = get_object_or_404(Profile, user=self.request.user)
-
         status_message = form.save(commit=False)
         status_message.profile = profile
         status_message.save()
 
+        # Handle uploaded images if any
         files = self.request.FILES.getlist('images')
         for file in files:
             Image.objects.create(status_message=status_message, image_file=file)
@@ -72,9 +72,10 @@ class CreateStatusMessageView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('profile')
-    
-    def get_login_url(self) -> str:
+        profile = get_object_or_404(Profile, user=self.request.user)
+        return reverse('profile', kwargs={'pk': profile.pk})
+
+    def get_login_url(self):
         return reverse('login')
     
 class UpdateProfileView(LoginRequiredMixin, UpdateView):
@@ -103,7 +104,8 @@ class DeleteStatusMessageView(LoginRequiredMixin, DeleteView):
     context_object_name = 'status_message'
 
     def get_success_url(self):
-        return reverse('profile')
+        profile = get_object_or_404(Profile, user=self.request.user)
+        return reverse('profile', kwargs={'pk': profile.pk})
     
 class UpdateStatusMessageView(LoginRequiredMixin, UpdateView):
     '''View to handle updating a status message.'''
@@ -112,20 +114,22 @@ class UpdateStatusMessageView(LoginRequiredMixin, UpdateView):
     template_name = 'mini_fb/update_status_form.html'
     context_object_name = 'status_message'
 
+    def get_object(self, queryset=None):
+        return get_object_or_404(StatusMessage, pk=self.kwargs['pk'])
+
     def get_success_url(self):
-        return reverse('profile')
+        return reverse('profile', kwargs={'pk': self.get_object().profile.pk})
     
 class CreateFriendView(LoginRequiredMixin, View):
     def dispatch(self, request, *args, **kwargs):
-        profile_pk = kwargs['pk']
-        friend_pk = kwargs['other_pk']
-        profile = get_object_or_404(Profile, pk=profile_pk)
-        friend_profile = get_object_or_404(Profile, pk=friend_pk)
-
+        friend_pk = kwargs['other_pk']  
+        friend_profile = get_object_or_404(Profile, pk=friend_pk)  
+        
+        profile = self.get_object()  
         profile.add_friend(friend_profile)
 
-        return redirect('profile', pk=profile_pk)
-    
+        return redirect('profile', pk=profile.pk)
+
     def get_object(self, queryset=None):
         return get_object_or_404(Profile, user=self.request.user)
     
