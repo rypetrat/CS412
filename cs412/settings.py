@@ -42,8 +42,9 @@ INSTALLED_APPS = [
     'formdata', # example
     'restaurant', # HW3
     'blog', # example
-    'mini_fb', # HW4-10
+    'mini_fb', # HW4-9
     'marathon_analytics', # example
+    'voter_analytics', # HW10
 ]
 
 MIDDLEWARE = [

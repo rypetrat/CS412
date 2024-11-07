@@ -28,5 +28,6 @@ urlpatterns = [
     path(r'restaurant/', include("restaurant.urls")), #HW4
     path(r'blog/', include("blog.urls")),
     path(r'mini_fb/', include("mini_fb.urls")),
+    path(r'voter_analytics/', include("voter_analytics.urls")),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

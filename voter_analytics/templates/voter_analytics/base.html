@@ -1,0 +1,19 @@
+{% load static %}
+<html>
+    <head>
+        <title>Voter Analytics</title>
+        <link rel="stylesheet" href="{% static 'stylesheet.css' %}">
+    </head>
+    <body>
+        <header>
+            <nav>
+                <li><a href="{% url 'graphs' %}">Graphs</a></li>
+                <li><a href="{% url 'voters' %}">Voter List</a></li>
+            </nav>
+        </header>
+    
+    {% block content %}
+    {% endblock %}    
+  
+    </body>
+</html>
