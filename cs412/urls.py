@@ -30,5 +30,6 @@ urlpatterns = [
     path(r'mini_fb/', include("mini_fb.urls")),
     path(r'voter_analytics/', include("voter_analytics.urls")),
     path(r'stat_tracker/', include("stat_tracker.urls")),
+    path(r'movie_review/', include("movie_review.urls")), # Final Project
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
