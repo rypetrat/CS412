@@ -20,7 +20,7 @@ class Review(models.Model):
     '''Encapsulates the idea of a Review on a Movie'''
     movie = models.ForeignKey("Movie", on_delete=models.CASCADE)
     review_message = models.TextField(blank=False)
-    review_date = models.DateTimeField(auto_now=True)
+    review_date = models.DateTimeField(auto_now=True, blank=False)
 
     def __str__(self):
         '''Return a string representation of this Review object'''
@@ -33,7 +33,7 @@ class Reviewer(models.Model):
     last_name = models.CharField(max_length=100, blank=False)
     email = models.CharField(max_length=100, blank=False)
     profile_img = models.ImageField(upload_to='images/')
-    joined_date = models.DateTimeField(auto_now=True)
+    joined_date = models.DateTimeField(auto_now=True, blank=False)
 
     def __str__(self):
         '''Return a string representation of this Reviewer object'''
@@ -47,7 +47,7 @@ class Rating(models.Model):
         decimal_places = 2,  
         blank = False,
         validators = [MinValueValidator(0), MaxValueValidator(5)])
-    rating_date = models.DateTimeField(auto_now=True)
+    rating_date = models.DateTimeField(auto_now=True, blank=False)
 
     def __str__(self):
         '''Return a string representation of this Rating object'''
