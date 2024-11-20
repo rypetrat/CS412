@@ -20,11 +20,8 @@ class Review(models.Model):
     '''Encapsulates the idea of a Review on a Movie'''
     movie = models.ForeignKey("Movie", on_delete=models.CASCADE)
     review_message = models.TextField(blank=False)
-    rating_score = models.DecimalField(
-        max_digits = 3,  
-        decimal_places = 2,  
-        blank = False,
-        validators = [MinValueValidator(0), MaxValueValidator(5)])
+    review_score = models.DecimalField(max_digits = 3, decimal_places = 2, blank = False, 
+            validators = [MinValueValidator(0), MaxValueValidator(5)])
     review_date = models.DateTimeField(auto_now=True, blank=False)
 
     def __str__(self):
