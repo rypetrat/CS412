@@ -20,6 +20,11 @@ class Review(models.Model):
     '''Encapsulates the idea of a Review on a Movie'''
     movie = models.ForeignKey("Movie", on_delete=models.CASCADE)
     review_message = models.TextField(blank=False)
+    rating_score = models.DecimalField(
+        max_digits = 3,  
+        decimal_places = 2,  
+        blank = False,
+        validators = [MinValueValidator(0), MaxValueValidator(5)])
     review_date = models.DateTimeField(auto_now=True, blank=False)
 
     def __str__(self):
@@ -39,16 +44,12 @@ class Reviewer(models.Model):
         '''Return a string representation of this Reviewer object'''
         return f"Reviewer: {self.first_name} {self.last_name}"
 
-class Rating(models.Model):
-    '''Encapsulates the idea of a Rating on a Review'''
-    review = models.ForeignKey("Review", on_delete=models.CASCADE)
-    score = models.DecimalField(
-        max_digits = 3,  
-        decimal_places = 2,  
-        blank = False,
-        validators = [MinValueValidator(0), MaxValueValidator(5)])
-    rating_date = models.DateTimeField(auto_now=True, blank=False)
+class Watchlist(models.Model):
+    '''Encapsulates the idea of a Watchlist for a Reviewer'''
+    reviewer = models.ForeignKey("Reviewer", on_delete=models.CASCADE)
+    movie = models.ForeignKey("Movie", on_delete=models.CASCADE)
+    added_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        '''Return a string representation of this Rating object'''
-        return f"Rating for Review: {self.review.review_message}"
+        '''Return a string representation of this Watchlist entry'''
+        return f"{self.reviewer}'s Watchlist, {self.movie.title}"

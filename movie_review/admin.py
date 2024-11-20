@@ -5,4 +5,4 @@ from .models import *
 admin.site.register(Movie)
 admin.site.register(Review)
 admin.site.register(Reviewer)
-admin.site.register(Rating)
+admin.site.register(Watchlist)
