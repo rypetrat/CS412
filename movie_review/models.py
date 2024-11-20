@@ -7,6 +7,8 @@ class Movie(models.Model):
     '''Encapsulates the idea of a Movie'''
     title = models.CharField(max_length=100, blank=False)
     genre = models.CharField(max_length=100, blank=False)
+    rating = models.CharField(max_length=5, blank=False)
+    director = models.CharField(max_length=100, blank=False)
     release_date = models.DateField(blank=False)
     description = models.TextField(blank=False)
     poster_img = models.ImageField(upload_to='images/')
@@ -14,11 +16,12 @@ class Movie(models.Model):
 
     def __str__(self):
         '''Return a string representation of this Movie object'''
-        return f"Movie: {self.title}"
+        return f"{self.title}"
 
 class Review(models.Model):
     '''Encapsulates the idea of a Review on a Movie'''
     movie = models.ForeignKey("Movie", on_delete=models.CASCADE)
+    reviewer = models.ForeignKey("Reviewer", on_delete=models.CASCADE)
     review_message = models.TextField(blank=False)
     review_score = models.DecimalField(max_digits = 3, decimal_places = 2, blank = False, 
             validators = [MinValueValidator(0), MaxValueValidator(5)])
@@ -26,7 +29,7 @@ class Review(models.Model):
 
     def __str__(self):
         '''Return a string representation of this Review object'''
-        return f"Review: {self.review_message}"
+        return f"{self.reviewer}'s review of {self.movie}"
 
 class Reviewer(models.Model):
     '''Encapsulates the idea of a person Reviewer'''
@@ -39,7 +42,7 @@ class Reviewer(models.Model):
 
     def __str__(self):
         '''Return a string representation of this Reviewer object'''
-        return f"Reviewer: {self.first_name} {self.last_name}"
+        return f"{self.first_name} {self.last_name}"
 
 class Watchlist(models.Model):
     '''Encapsulates the idea of a Watchlist for a Reviewer'''
@@ -49,4 +52,4 @@ class Watchlist(models.Model):
 
     def __str__(self):
         '''Return a string representation of this Watchlist entry'''
-        return f"{self.reviewer}'s Watchlist, {self.movie.title}"
+        return f"{self.reviewer} watched: {self.movie.title}"
