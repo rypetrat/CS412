@@ -1,0 +1,30 @@
+<head>
+    <title>Add New Movie</title>   
+</head>
+
+{% extends 'movie_review/base.html' %}
+{% block content %}
+<div>
+    <h1>Add a new review</h1>
+    <!-- Defines the form for adding a new Review to the database -->
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+            <label for="id_movie">Title:</label>
+            {{ form.movie }}
+        </div>
+        <div>
+            <label for="id_review_message">Genre:</label>
+            {{ form.review_message }}
+        </div>
+        <div>
+            <label for="id_review_score">Rating:</label>
+            {{ form.review_score }}
+        </div>
+        
+        <div>
+            <input type="submit" value="Create Review">
+        </div>
+    </form>
+</div>
+{% endblock %}

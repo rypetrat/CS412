@@ -1,0 +1,27 @@
+{% extends 'movie_review/base.html' %}
+{% block content %}
+
+<main class="grid-container">
+    <h1>All Movies:</h1>
+    {% for m in movies %}
+    <!-- Shows all movies that have been added to the database and links to individual movie pages -->
+    <article>
+        <div>
+            <a href="{% url 'movie' m.pk %}">
+                <h2>{{m.title}}</h2>
+            </a>
+            {% if m.poster_img %}
+                <a href="{% url 'movie' m.pk %}">
+                    <img src="{{ m.poster_img.url }}" alt="Poster Image" style="max-width: 200px; max-height: 200px;">
+                </a>
+            {% endif %}
+            <h3>
+                Released: {{m.release_date}} <br>
+                Rating: {{m.rating}} <br>
+                Genre: {{m.genre}}
+            </h3> 
+        </div>
+    </article>
+    {% endfor %}
+</main>
+{% endblock %}

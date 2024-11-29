@@ -1,0 +1,23 @@
+{% extends 'movie_review/base.html' %}
+{% block content %}
+
+<main class="grid-container">
+    <h1>All Reviews:</h1>
+    {% for r in reviews %}
+    <!-- Shows all reviewers that have been added to the database and links to individual profile pages -->
+    <article>
+        <div>
+            <h2> 
+                <a href="{% url 'reviewer' r.reviewer.pk %}"> {{ r.reviewer }}'s </a>
+                review of 
+                <a href="{% url 'movie' r.movie.pk %}"> {{ r.movie }} </a>
+            </h2>
+            <h3>
+                Score: {{r.review_score}}/5 <br>
+                {{r.review_date}} <br>
+            </h3> 
+        </div>
+    </article>
+    {% endfor %}
+</main>
+{% endblock %}

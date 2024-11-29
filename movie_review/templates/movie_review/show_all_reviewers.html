@@ -1,0 +1,26 @@
+{% extends 'movie_review/base.html' %}
+{% block content %}
+
+<main class="grid-container">
+    <h1>All Reviewers:</h1>
+    {% for r in reviewers %}
+    <!-- Shows all reviewers that have been added to the database and links to individual profile pages -->
+    <article>
+        <div>
+            <a href="{% url 'reviewer' r.pk %}">
+                <h2>{{r.first_name}} {{r.last_name}}</h2>
+            </a>
+            {% if r.profile_img %}
+                <a href="{% url 'reviewer' r.pk %}">
+                    <img src="{{ r.profile_img.url }}" alt="Profile Image" style="max-width: 200px; max-height: 200px;">
+                </a>
+            {% endif %}
+            <h3>
+                Email: {{r.email}} <br>
+                
+            </h3> 
+        </div>
+    </article>
+    {% endfor %}
+</main>
+{% endblock %}

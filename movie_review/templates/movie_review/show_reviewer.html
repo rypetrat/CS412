@@ -1,0 +1,45 @@
+{% extends 'movie_review/base.html' %}
+{% load static %}
+
+{% block content %}
+<main class="grid-container">
+    <!-- Display for the Reviewers's information -->
+    <article class="featured">
+        <div>
+            <h2>
+                {{ reviewer.first_name }} {{ reviewer.last_name }} <br>
+                <img src="{{ reviewer.profile_img.url }}" alt="Profile Image" style="max-width: 400px; max-height: 400px;"> <br>
+            </h2>
+        </div>
+    </article>
+
+    <!-- Display for the Reviews by this Reviewer -->
+    <div>
+        <h2>Reviews:</h2>
+        {% for p in profile.get_statusMessages %}
+        <article>
+            <div>
+                <strong>"{{ p.message }}", at {{ p.timestamp }}</strong>
+                {% if request.user.is_authenticated and request.user == profile.user %}
+                    <a class="button" href="{% url 'delete_status' p.pk %}" style="font-size: 0.8em; padding: 5px 10px;">Delete</a>
+                    <a class="button" href="{% url 'update_status' p.pk %}" style="font-size: 0.8em; padding: 5px 10px;">Update</a>
+                {% endif %}
+                {% if p.get_images %}
+                    <div>
+                        {% for img in p.get_images %}
+                        <img src="{{ img.image_file.url }}" alt="Image for status message" style="max-width: 200px; max-height: 200px;">
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div><br><br>
+        </article>
+        {% empty %}
+        <p>No reviews to display.</p> 
+        {% endfor %}
+    </div>
+
+    <div>
+        <h2>Watchlist:</h2>
+    </div>
+</main>
+{% endblock %}
