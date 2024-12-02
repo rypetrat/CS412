@@ -16,30 +16,29 @@
     <!-- Display for the Reviews by this Reviewer -->
     <div>
         <h2>Reviews:</h2>
-        {% for p in profile.get_statusMessages %}
+        {% for r in reviewer.get_reviews %}
         <article>
             <div>
-                <strong>"{{ p.message }}", at {{ p.timestamp }}</strong>
-                {% if request.user.is_authenticated and request.user == profile.user %}
-                    <a class="button" href="{% url 'delete_status' p.pk %}" style="font-size: 0.8em; padding: 5px 10px;">Delete</a>
-                    <a class="button" href="{% url 'update_status' p.pk %}" style="font-size: 0.8em; padding: 5px 10px;">Update</a>
-                {% endif %}
-                {% if p.get_images %}
-                    <div>
-                        {% for img in p.get_images %}
-                        <img src="{{ img.image_file.url }}" alt="Image for status message" style="max-width: 200px; max-height: 200px;">
-                        {% endfor %}
-                    </div>
-                {% endif %}
-            </div><br><br>
+                {{r.movie}}: "{{ r.review_message }}" [Score: {{r.review_score}}/5], at {{ r.review_date }}
+            </div><br>
         </article>
         {% empty %}
         <p>No reviews to display.</p> 
         {% endfor %}
     </div>
 
+    <!-- Displays this Reviewer's Watchlist -->
     <div>
         <h2>Watchlist:</h2>
+        {% for w in reviewer.get_watchlist %}
+        <article>
+            <div>
+                {{w.movie}}
+            </div>
+        </article>
+        {% empty %}
+        <p>No Movies Watched.</p> 
+        {% endfor %}
     </div>
 </main>
 {% endblock %}

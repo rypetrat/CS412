@@ -1,6 +1,5 @@
 from django.urls import path
 from .views import *
-from . import views
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
@@ -12,6 +11,7 @@ urlpatterns = [
     path('create_reviewer/', CreateReviewerView.as_view(), name='create_reviewer'), # form for creating new reviewer
     path('create_review/', CreateReviewView.as_view(), name='create_review'), # form for creating a new review
     path('add_movie/', CreateMovieView.as_view(), name='add_movie'), # form for creating a new movie
+    path('add_to_watchlist/', CreateWatchlistView.as_view(), name='add_to_watchlist'), # form for adding a movie to a users watchlist
     path('login/', auth_views.LoginView.as_view(template_name='movie_review/login.html'), name='login'), # handles login
     path('logout/', auth_views.LogoutView.as_view(template_name='movie_review/logged_out.html', next_page='show_all'), name='logout'), # handles logout
 ]

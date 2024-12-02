@@ -6,16 +6,24 @@
     </head>
     
     <body>
+        <header>
+            <h1>Movie Ratings and Reviews</h1>
+        </header>
+
         <nav class="navbar">
             <ul class="navbar-nav">
+                <!-- these links do not require a user to be signed in -->
                 <li class="nav-item"><a href="{% url 'show_all' %}">All Movies</a></li>
                 <li class="nav-item"><a href="{% url 'show_all_reviewers' %}">All Reviewers</a></li>
                 <li class="nav-item"><a href="{% url 'show_all_reviews' %}">All Reviews</a></li>
                 <li class="nav-item"><a href="{% url 'add_movie' %}">Add Movie</a></li>
                 <li class="nav-item"><a href="{% url 'create_reviewer' %}">Create Profile</a></li>
-                <li class="nav-item"><a href="{% url 'create_review' %}">Create New Review</a></li>
+                <!-- only show the links that need an authenticated user if signed in -->
                 {% if request.user.is_authenticated %}
+                    <li class="nav-item"><a href="{% url 'create_review' %}">Create New Review</a></li>
+                    <li class="nav-item"><a href="{% url 'add_to_watchlist' %}">Add Movie to Watchlist</a></li> 
                     <li class="nav-item">
+                        
                         <a href="#" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
                         <form id="logout-form" method="POST" action="{% url 'logout' %}" style="display: none;">
                             {% csrf_token %}
@@ -25,6 +33,7 @@
                     <li class="nav-item"><a href="{% url 'login' %}" class="nav-link">Login</a></li>
                 {% endif %}
             </ul>
+            <!-- display logged in user for debugging -->
             <p>
                 {% if request.user.is_authenticated %}
                     Logged in user: {{ request.user }}.
@@ -33,10 +42,6 @@
                 {% endif %}
             </p>
         </nav>
-
-        <header>
-            <h1>Movie Ratings and Reviews</h1>
-        </header>
     {% block content %}
     {% endblock %}    
     </body>

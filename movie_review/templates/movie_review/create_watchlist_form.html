@@ -1,0 +1,17 @@
+{% extends 'movie_review/base.html' %}
+{% block content %}
+<div>
+    <h1>Add New Movie to Watchlist</h1>
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+            <label for="id_movie">Movie:</label>
+            {{ form.movie }}
+        </div>
+
+        <div>
+            <input type="submit" value="Add Movie">
+        </div>
+    </form>
+</div>
+{% endblock %}

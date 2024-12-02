@@ -24,3 +24,9 @@ class CreateMovieForm(forms.ModelForm):
     class Meta:
         model = Movie
         fields = ['title', 'genre', 'rating', 'director', 'release_date', 'description', 'poster_img', 'runtime']
+
+class CreateWatchlistForm(forms.ModelForm):
+    ''' Defines the form for creating a new Review '''
+    class Meta:
+        model = Watchlist
+        fields = ['movie']

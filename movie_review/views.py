@@ -6,6 +6,7 @@ from django.urls import reverse
 from .models import *
 from .forms import *
 from django.views.generic import *
+from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
 
@@ -19,6 +20,10 @@ class ShowAllMovieView(ListView):
     def dispatch(self, *args, **kwargs):
         print(f"self.request.user={self.request.user}")
         return super().dispatch(*args, **kwargs)
+
+    def get_queryset(self):
+        # Order movies alphabetically by title
+        return Movie.objects.all().order_by('title')
 
 class MoviePageView(DetailView):
     '''Show the full details for a single movie.'''
@@ -41,6 +46,10 @@ class ShowAllReviewerView(ListView):
         print(f"self.request.user={self.request.user}")
         return super().dispatch(*args, **kwargs)
     
+    def get_queryset(self):
+        # Order movies alphabetically by title
+        return Reviewer.objects.all().order_by('last_name', 'first_name')
+    
 class ReviewerPageView(DetailView):
     '''Show the full details for a single movie.'''
     model = Reviewer
@@ -56,6 +65,10 @@ class ShowAllReviewView(ListView):
     def dispatch(self, *args, **kwargs):
         print(f"self.request.user={self.request.user}")
         return super().dispatch(*args, **kwargs)
+    
+    def get_queryset(self):
+        # Order reviews by review_date in descending order
+        return Review.objects.all().order_by('-review_date')
 
 class CreateReviewerView(CreateView):
     '''Handles Reviewer creation'''
@@ -71,14 +84,25 @@ class CreateReviewerView(CreateView):
     def form_valid(self, form):
         user_creation_form = UserCreationForm(self.request.POST)
         if user_creation_form.is_valid():
+            # Save the user and link it to the reviewer
             user = user_creation_form.save()
             form.instance.user = user
-            return super().form_valid(form)
+            response = super().form_valid(form)
+            # Log in the new user
+            login(self.request, user)
+            return response
         else:
             return self.form_invalid(form)
     
+    def form_invalid(self, form):
+        # Display errors for both forms
+        context = self.get_context_data()
+        context['user_creation_form'] = UserCreationForm(self.request.POST)
+        context['form'] = form
+        return self.render_to_response(context)
+    
     def get_success_url(self):
-        return reverse('', kwargs={'pk': self.object.pk})
+        return reverse('reviewer', kwargs={'pk': self.object.pk})
 
 class CreateMovieView(CreateView):
     '''Handles movie creation'''
@@ -95,19 +119,17 @@ class CreateMovieView(CreateView):
         # Save the movie instance
         movie = form.save(commit=False)
         movie.save()
-
         # Handle uploaded poster image
         if 'poster_img' in self.request.FILES:
             movie.poster_img = self.request.FILES['poster_img']
             movie.save()
-
         # Call the parent class's form_valid to complete processing
         return super().form_valid(form)
     
     def get_success_url(self):
         return reverse('movie', kwargs={'pk': self.object.pk})
     
-class CreateReviewView(CreateView):
+class CreateReviewView(LoginRequiredMixin, CreateView):
     '''Handles review creation'''
     model = Review
     form_class = CreateReviewForm
@@ -122,17 +144,37 @@ class CreateReviewView(CreateView):
     def form_valid(self, form):
         # Get the movie from the form
         movie = form.cleaned_data['movie']
-
         # Ensure that a reviewer exists for the user
         user = self.request.user
         reviewer = Reviewer.objects.get(user=user)
-
         # Create the review
         review = form.save(commit=False)
         review.movie = movie
         review.reviewer = reviewer
         review.save()
         
+        return super().form_valid(form)
+    
+    def get_success_url(self):
+        return reverse('movie', kwargs={'pk': self.object.movie.pk})
+
+class CreateWatchlistView(LoginRequiredMixin, CreateView):
+    '''Handles watchlist creation/adding movies to a users watchlist'''
+    model = Watchlist
+    form_class = CreateWatchlistForm
+    template_name = 'movie_review/create_watchlist_form.html'
+    
+    def get_context_data(self, **kwargs):
+        # Make sure to include a list of movies in the context so the user can select one
+        context = super().get_context_data(**kwargs)
+        context['movies'] = Movie.objects.all()
+        return context
+    
+    def form_valid(self, form):
+        reviewer = get_object_or_404(Reviewer, user=self.request.user)
+        watchlist = form.save(commit=False)
+        watchlist.reviewer = reviewer  # Ensure this links to the correct reviewer
+        watchlist.save()  # Save the watchlist with the reviewer linked
         return super().form_valid(form)
     
     def get_success_url(self):

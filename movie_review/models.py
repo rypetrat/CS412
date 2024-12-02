@@ -17,6 +17,11 @@ class Movie(models.Model):
     def __str__(self):
         '''Return a string representation of this Movie object'''
         return f"{self.title}"
+    
+    def get_reviews(self):
+        '''Return all of the Reviews on this Movie.'''
+        reviews = Review.objects.filter(movie=self)
+        return reviews
 
 class Review(models.Model):
     '''Encapsulates the idea of a Review on a Movie'''
@@ -43,6 +48,16 @@ class Reviewer(models.Model):
     def __str__(self):
         '''Return a string representation of this Reviewer object'''
         return f"{self.first_name} {self.last_name}"
+    
+    def get_reviews(self):
+        '''Return all of the Reviews from this Reviewer.'''
+        reviews = Review.objects.filter(reviewer=self)
+        return reviews
+    
+    def get_watchlist(self):
+        '''Returns the watchlist of this Reviewer.'''
+        watchlist = Watchlist.objects.filter(reviewer=self)
+        return watchlist
 
 class Watchlist(models.Model):
     '''Encapsulates the idea of a Watchlist for a Reviewer'''
