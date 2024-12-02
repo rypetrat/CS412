@@ -22,7 +22,7 @@ class ShowAllMovieView(ListView):
         return super().dispatch(*args, **kwargs)
 
     def get_queryset(self):
-        # Order movies alphabetically by title
+        # Orders movies alphabetically by title
         return Movie.objects.all().order_by('title')
 
 class MoviePageView(DetailView):
@@ -47,7 +47,7 @@ class ShowAllReviewerView(ListView):
         return super().dispatch(*args, **kwargs)
     
     def get_queryset(self):
-        # Order movies alphabetically by title
+        # Order movies alphabetically by last and then first name
         return Reviewer.objects.all().order_by('last_name', 'first_name')
     
 class ReviewerPageView(DetailView):
@@ -102,6 +102,7 @@ class CreateReviewerView(CreateView):
         return self.render_to_response(context)
     
     def get_success_url(self):
+        # redirect upon successful reviewer creation to that new reviewer's page
         return reverse('reviewer', kwargs={'pk': self.object.pk})
 
 class CreateMovieView(CreateView):
@@ -127,6 +128,7 @@ class CreateMovieView(CreateView):
         return super().form_valid(form)
     
     def get_success_url(self):
+        # redirect upon successful creation of a new movie to that movie's page
         return reverse('movie', kwargs={'pk': self.object.pk})
     
 class CreateReviewView(LoginRequiredMixin, CreateView):
@@ -136,7 +138,7 @@ class CreateReviewView(LoginRequiredMixin, CreateView):
     template_name = 'movie_review/create_review_form.html'
     
     def get_context_data(self, **kwargs):
-        # Make sure to include a list of movies in the context so the user can select one
+        # include a list of movies in the context so the user can select one
         context = super().get_context_data(**kwargs)
         context['movies'] = Movie.objects.all()  # Fetch all movies to populate the movie selection field
         return context
@@ -156,6 +158,7 @@ class CreateReviewView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
     
     def get_success_url(self):
+        # redirect upon successful creation of a new comment to the movie being reviewed's page
         return reverse('movie', kwargs={'pk': self.object.movie.pk})
 
 class CreateWatchlistView(LoginRequiredMixin, CreateView):
@@ -165,17 +168,20 @@ class CreateWatchlistView(LoginRequiredMixin, CreateView):
     template_name = 'movie_review/create_watchlist_form.html'
     
     def get_context_data(self, **kwargs):
-        # Make sure to include a list of movies in the context so the user can select one
+        # Include only movies not already in the reviewer's watchlist
         context = super().get_context_data(**kwargs)
-        context['movies'] = Movie.objects.all()
+        reviewer = get_object_or_404(Reviewer, user=self.request.user)
+        watched_movie_ids = reviewer.watchlist_set.values_list('movie_id', flat=True)
+        context['movies'] = Movie.objects.exclude(id__in=watched_movie_ids)
         return context
     
     def form_valid(self, form):
         reviewer = get_object_or_404(Reviewer, user=self.request.user)
         watchlist = form.save(commit=False)
-        watchlist.reviewer = reviewer  # Ensure this links to the correct reviewer
-        watchlist.save()  # Save the watchlist with the reviewer linked
+        watchlist.reviewer = reviewer  # links to the reviewer
+        watchlist.save()  # Save the watchlist with the linked reviewer 
         return super().form_valid(form)
     
     def get_success_url(self):
-        return reverse('movie', kwargs={'pk': self.object.movie.pk})
+        # redirect to reviewer's page upon successful addition of a movie to watchlist
+        return reverse('reviewer', kwargs={'pk': self.object.reviewer.pk})
