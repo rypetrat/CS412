@@ -21,7 +21,7 @@
                 <!-- only show the links that need an authenticated user if signed in -->
                 {% if request.user.is_authenticated %}
                     <li class="nav-item"><a href="{% url 'create_review' %}">Create New Review</a></li>
-                    <li class="nav-item"><a href="{% url 'add_to_watchlist' %}">Add Movie to Watchlist</a></li> 
+                    <li class="nav-item"><a href="{% url 'add_to_watchlist' %}">Add Movie to Watchlist</a></li>
                     <li class="nav-item">
                         
                         <a href="#" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
@@ -36,7 +36,7 @@
             <!-- display logged in user for debugging -->
             <p>
                 {% if request.user.is_authenticated %}
-                    Logged in user: {{ request.user }}.
+                    Logged in user: {{ request.user }}
                     {% else %}
                     Not logged in.
                 {% endif %}

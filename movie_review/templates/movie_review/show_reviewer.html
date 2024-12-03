@@ -3,13 +3,21 @@
 
 {% block content %}
 <main class="grid-container">
+    <!-- If the user is on their own reviewer page give the option to update their information -->
+    <div>
+        {% if request.user.is_authenticated and request.user == reviewer.user %}
+            <a href="{% url 'update_reviewer' %}">Update Reviewer</a>
+        {% endif %}
+    </div>
+
     <!-- Display for the Reviewers's information -->
     <article class="featured">
         <div>
             <h2>
                 {{ reviewer.first_name }} {{ reviewer.last_name }} <br>
-                <img src="{{ reviewer.profile_img.url }}" alt="Profile Image" style="max-width: 400px; max-height: 400px;"> <br>
+                <img src="{{ reviewer.profile_img.url }}" alt="Profile Image" style="max-width: 400px; max-height: 400px;"> 
             </h2>
+            Email: {{reviewer.email}}
         </div>
     </article>
 
@@ -20,6 +28,10 @@
         <article>
             <div>
                 {{r.movie}}: "{{ r.review_message }}" [Score: {{r.review_score}}/5], at {{ r.review_date }}
+                {% if request.user.is_authenticated and request.user == reviewer.user %}
+                    <a href="{% url 'delete_review' r.pk %}">Delete Review</a>
+                    <a href="{% url 'update_review' r.pk %}">Update Review</a>
+                {% endif %}
             </div><br>
         </article>
         {% empty %}
@@ -34,6 +46,9 @@
         <article>
             <div>
                 {{w.movie}}
+                {% if request.user.is_authenticated and request.user == reviewer.user %}
+                    <a href="{% url 'delete_watchlist' w.pk %}">Remove</a>
+                {% endif %}
             </div>
         </article>
         {% empty %}

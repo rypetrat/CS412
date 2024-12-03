@@ -22,6 +22,11 @@ class Movie(models.Model):
         '''Return all of the Reviews on this Movie.'''
         reviews = Review.objects.filter(movie=self)
         return reviews
+    
+    def get_watched(self):
+        '''Returns all the people who have this movie in their Watchlist.'''
+        watched = Reviewer.objects.filter(id__in=Watchlist.objects.filter(movie=self).values('reviewer'))
+        return watched
 
 class Review(models.Model):
     '''Encapsulates the idea of a Review on a Movie'''

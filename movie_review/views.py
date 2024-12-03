@@ -138,9 +138,20 @@ class CreateReviewView(LoginRequiredMixin, CreateView):
     template_name = 'movie_review/create_review_form.html'
     
     def get_context_data(self, **kwargs):
-        # include a list of movies in the context so the user can select one
+        # Get the current user and their associated reviewer object
+        user = self.request.user
+        reviewer = Reviewer.objects.get(user=user)
+        
+        # Fetch movies already reviewed by this reviewer
+        reviewed_movie_ids = Review.objects.filter(reviewer=reviewer).values_list('movie_id', flat=True)
+        
+        # Fetch movies not yet reviewed by this reviewer, ordered alphabetically by title
+        movies_not_reviewed = Movie.objects.exclude(id__in=reviewed_movie_ids).order_by('title')
+        
+        # Add the filtered and sorted movies to the form's movie field queryset
         context = super().get_context_data(**kwargs)
-        context['movies'] = Movie.objects.all()  # Fetch all movies to populate the movie selection field
+        context['form'].fields['movie'].queryset = movies_not_reviewed
+        context['movies'] = movies_not_reviewed
         return context
 
     def form_valid(self, form):
@@ -168,11 +179,18 @@ class CreateWatchlistView(LoginRequiredMixin, CreateView):
     template_name = 'movie_review/create_watchlist_form.html'
     
     def get_context_data(self, **kwargs):
-        # Include only movies not already in the reviewer's watchlist
+        # Get the current user and their associated reviewer object
+        user = self.request.user
+        reviewer = Reviewer.objects.get(user=user)
+        
+        # Fetch movies not in the reviewer's watchlist and sort them alphabetically by title
+        movies_in_watchlist = Watchlist.objects.filter(reviewer=reviewer).values_list('movie', flat=True)
+        available_movies = Movie.objects.exclude(id__in=movies_in_watchlist).order_by('title')
+        
+        # Add the sorted movies to the form's movie field queryset
         context = super().get_context_data(**kwargs)
-        reviewer = get_object_or_404(Reviewer, user=self.request.user)
-        watched_movie_ids = reviewer.watchlist_set.values_list('movie_id', flat=True)
-        context['movies'] = Movie.objects.exclude(id__in=watched_movie_ids)
+        context['form'].fields['movie'].queryset = available_movies
+        context['movies'] = available_movies
         return context
     
     def form_valid(self, form):
@@ -185,3 +203,55 @@ class CreateWatchlistView(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         # redirect to reviewer's page upon successful addition of a movie to watchlist
         return reverse('reviewer', kwargs={'pk': self.object.reviewer.pk})
+
+class UpdateReviewerView(LoginRequiredMixin, UpdateView):
+    '''Handles updating a Reviewer's profile.'''
+    model = Reviewer
+    form_class = UpdateReviewerForm
+    template_name = 'movie_review/update_reviewer_form.html'
+
+    def get_object(self):
+        return get_object_or_404(Reviewer, user=self.request.user)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        reviewer = self.get_object()  
+        context['first_name'] = reviewer.first_name  
+        context['last_name'] = reviewer.last_name
+        return context
+
+    def get_success_url(self):
+        return reverse('reviewer', kwargs={'pk': self.object.pk})
+
+class DeleteReviewView(LoginRequiredMixin, DeleteView):
+    '''Handles the deletion of a Review.'''
+    model = Review
+    template_name = 'movie_review/delete_review_form.html'
+    context_object_name = 'review'
+
+    def get_success_url(self):
+        reviewer = get_object_or_404(Reviewer, user=self.request.user)
+        return reverse('reviewer', kwargs={'pk': reviewer.pk})
+
+class UpdateReviewView(LoginRequiredMixin, UpdateView):
+    '''Handles the updating of a Review.'''
+    model = Review
+    form_class = UpdateReviewForm
+    template_name = 'movie_review/update_review_form.html'
+    context_object_name = 'review'
+
+    def get_object(self, queryset=None):
+        return get_object_or_404(Review, pk=self.kwargs['pk'])
+
+    def get_success_url(self):
+        return reverse('reviewer', kwargs={'pk': self.get_object().reviewer.pk})
+    
+class DeleteWatchlistView(LoginRequiredMixin, DeleteView):
+    '''Handles the deletion of a Movie from a Watchlist.'''
+    model = Watchlist
+    template_name = 'movie_review/delete_watchlist_form.html'
+    context_object_name = 'watchlist'
+
+    def get_success_url(self):
+        reviewer = get_object_or_404(Reviewer, user=self.request.user)
+        return reverse('reviewer', kwargs={'pk': reviewer.pk})

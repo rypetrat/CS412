@@ -30,3 +30,15 @@ class CreateWatchlistForm(forms.ModelForm):
     class Meta:
         model = Watchlist
         fields = ['movie']
+
+class UpdateReviewerForm(forms.ModelForm):
+    '''Defines the form for updating a Reviewer's profile'''
+    class Meta:
+        model = Reviewer
+        fields = ['email', 'profile_img']
+
+class UpdateReviewForm(forms.ModelForm):
+    '''Defines the form for updating a Review.'''
+    class Meta:
+        model = Review
+        fields = ['review_message', 'review_score']

@@ -31,7 +31,21 @@
             </div>
         </article>
         {% empty %}
-        <p>No reviews to display.</p> 
+        <p>No reviews.</p> 
+        {% endfor %}
+    </div>
+
+    <!-- Displays the Reviewers who have this movie in their watchlist -->
+    <div>
+        <h2>Reviewers who have watched:</h2>
+        {% for w in movie.get_watched %}
+        <article>
+            <div>
+                {{w.first_name}} {{w.last_name}}<br>
+            </div>
+        </article>
+        {% empty %}
+        <p>Nobody has Watched.</p> 
         {% endfor %}
     </div>
 </main>

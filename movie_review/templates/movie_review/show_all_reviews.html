@@ -13,8 +13,9 @@
                 <a href="{% url 'movie' r.movie.pk %}"> {{ r.movie }} </a>
             </h2>
             <h3>
+                Review: {{r.review_message}} <br>
                 Score: {{r.review_score}}/5 <br>
-                {{r.review_date}} <br>
+                Reviewed at: {{r.review_date}} <br>
             </h3> 
         </div>
     </article>
