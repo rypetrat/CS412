@@ -48,3 +48,26 @@ class UpdateMovieForm(forms.ModelForm):
     class Meta:
         model = Movie
         fields = ['genre', 'rating', 'director', 'release_date', 'description', 'poster_img', 'runtime']
+
+class MovieFilterForm(forms.Form):
+    # Filter by title
+    title = forms.CharField(max_length=100, required=False, label="Title")
+    # Filter by rating
+    RATING_CHOICES = [(r, r) for r in Movie.objects.values_list('rating', flat=True).distinct()]
+    rating = forms.ChoiceField(choices=[('', 'Any')] + RATING_CHOICES, required=False, label="Rating")
+    # Filter by reviewer score range
+    min_reviewer_score = forms.DecimalField(min_value=0, max_value=5, required=False, label="Minimum Reviewer Score")
+    max_reviewer_score = forms.DecimalField(min_value=0, max_value=5, required=False, label="Maximum Reviewer Score")
+    # Filter by release date
+    release_date = forms.DateField(required=False, widget=forms.DateInput(attrs={'type': 'date'}), label="Release Date")
+    # Filter by genre
+    genre = forms.CharField(max_length=100, required=False, label="Genre")
+    # Filter by runtime range
+    min_runtime = forms.IntegerField(min_value=0, required=False, label="Minimum Runtime (minutes)")
+    max_runtime = forms.IntegerField(min_value=0, required=False, label="Maximum Runtime (minutes)")
+
+class ReviewerFilterForm(forms.Form):
+    # Filter by title
+    first_name = forms.CharField(max_length=100, required=False, label="First name")
+    # Filter by title
+    last_name = forms.CharField(max_length=100, required=False, label="Last name")

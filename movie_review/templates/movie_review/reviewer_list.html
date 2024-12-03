@@ -1,0 +1,33 @@
+{% extends 'movie_review/base.html' %}
+
+{% block content %}
+  <h2>
+    Filters
+  </h2>
+  <form method="get">
+    {{ form.as_p }}
+    <button type="submit">Filter</button>
+  </form>
+
+  <hr>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <h1>Reviewer List</h1>
+      {% for reviewer in reviewers %}
+        <tr>
+          <td><a href="{% url 'reviewer' reviewer.pk %}">{{ reviewer.first_name }} {{ reviewer.last_name }}</a></td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="5">No reviewers found matching the criteria.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

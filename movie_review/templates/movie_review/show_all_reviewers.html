@@ -2,7 +2,11 @@
 {% block content %}
 
 <main class="grid-container">
-    <h1>All Reviewers:</h1>
+    <div>
+        <a href="{% url 'reviewer_search' %}">Search for Reviewers</a>
+        <h1>All Reviewers:</h1>
+    </div>
+    
     {% for r in reviewers %}
     <!-- Shows all reviewers that have been added to the database and links to individual profile pages -->
     <article>

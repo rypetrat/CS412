@@ -262,3 +262,77 @@ class UpdateMovieView(UpdateView):
 
     def get_success_url(self):
         return reverse('movie', kwargs={'pk': self.object.pk})
+    
+class MovieListView(ListView):
+    '''Handles filtering of movies based on some criteria'''
+    model = Movie
+    template_name = 'movie_review/movie_list.html'
+    context_object_name = 'movies'
+
+    def get_queryset(self):
+        queryset = Movie.objects.all()
+        form = MovieFilterForm(self.request.GET)
+        if form.is_valid():
+            # Apply filters if provided
+            title = form.cleaned_data.get('title')
+            rating = form.cleaned_data.get('rating')
+            min_reviewer_score = self.request.GET.get('min_reviewer_score')
+            max_reviewer_score = self.request.GET.get('max_reviewer_score')
+            release_date = form.cleaned_data.get('release_date')
+            genre = form.cleaned_data.get('genre')
+            min_runtime = form.cleaned_data.get('min_runtime')
+            max_runtime = form.cleaned_data.get('max_runtime')
+            # Filter by reviewer score range
+            queryset = Movie.objects.annotate(avg_review_score=Avg('review__review_score'))
+            if min_reviewer_score:
+                queryset = queryset.filter(avg_review_score__gte=min_reviewer_score)
+            if max_reviewer_score:
+                queryset = queryset.filter(avg_review_score__lte=max_reviewer_score)
+            # Filter by movie title
+            if title:
+                queryset = queryset.filter(title__icontains=title.strip())
+            # Filter by movie rating
+            if rating:
+                queryset = queryset.filter(rating=rating)
+            # Filter by release date
+            if release_date:
+                queryset = queryset.filter(release_date=release_date)
+            # Filter by genre
+            if genre:
+                queryset = queryset.filter(genre__icontains=genre)
+            # Filter by runtime range
+            if min_runtime is not None:
+                queryset = queryset.filter(runtime__gte=min_runtime)
+            if max_runtime is not None:
+                queryset = queryset.filter(runtime__lte=max_runtime)
+        return queryset.distinct()
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = MovieFilterForm(self.request.GET or None)
+        return context
+    
+class ReviewerListView(ListView):
+    '''Handles filtering of Reviewers based on some criteria'''
+    model = Reviewer
+    template_name = 'movie_review/reviewer_list.html'
+    context_object_name = 'reviewers'
+
+    def get_queryset(self):
+        queryset = Reviewer.objects.all()
+        form = ReviewerFilterForm(self.request.GET)
+        if form.is_valid():
+            first_name = form.cleaned_data.get('first_name')
+            last_name = form.cleaned_data.get('last_name')
+            # Filter by first name
+            if first_name:
+                queryset = queryset.filter(first_name__icontains=first_name.strip())
+            # Filter by last name
+            if last_name:
+                queryset = queryset.filter(last_name__icontains=last_name.strip())
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = ReviewerFilterForm(self.request.GET or None)
+        return context

@@ -2,7 +2,11 @@
 {% block content %}
 
 <main class="grid-container">
-    <h1>All Movies:</h1>
+    <div>
+        <a href="{% url 'movie_search' %}">Search for Movies</a>
+        <h1>All Movies:</h1>
+    </div>
+    
     {% for m in movies %}
     <!-- Shows all movies that have been added to the database and links to individual movie pages -->
     <article>
