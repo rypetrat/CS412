@@ -14,10 +14,9 @@
     <article class="featured">
         <div>
             <h2>
-                {{ reviewer.first_name }} {{ reviewer.last_name }} <br>
+                {{ reviewer.first_name }} {{ reviewer.last_name }}, Average Movie Score: {{ reviewer.average_rating|floatformat:2 }} / 5<br>
                 <img src="{{ reviewer.profile_img.url }}" alt="Profile Image" style="max-width: 400px; max-height: 400px;"> 
             </h2>
-            Average Review Score: {{ reviewer.average_rating|floatformat:2 }} / 5 <br>
             Email: {{reviewer.email}}
         </div>
     </article>

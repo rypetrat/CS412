@@ -1,5 +1,6 @@
-from django import forms
 from .models import *
+from django import forms
+
 
 class CreateReviewerForm(forms.ModelForm):
     ''' Defnies the form to create a new Reviewer '''

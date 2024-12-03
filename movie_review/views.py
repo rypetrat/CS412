@@ -1,14 +1,12 @@
-from typing import Any
-from django.db.models.base import Model as Model
-from django.db.models.query import QuerySet
-from django.shortcuts import redirect, get_object_or_404
-from django.urls import reverse
-from .models import *
 from .forms import *
+from .models import *
+from django.urls import reverse
 from django.views.generic import *
 from django.contrib.auth import login
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import get_object_or_404
+from django.db.models.base import Model as Model
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class ShowAllMovieView(ListView):
