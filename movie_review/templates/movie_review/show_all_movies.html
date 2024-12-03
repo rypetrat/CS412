@@ -16,9 +16,10 @@
                 </a>
             {% endif %}
             <h3>
-                Released: {{m.release_date}} <br>
+                Reviewer's Score: {{ m.average_rating|floatformat:2 }} / 5 <br>
                 Rating: {{m.rating}} <br>
-                Genre: {{m.genre}}
+                Genre: {{m.genre}} <br>
+                Released: {{m.release_date}} 
             </h3> 
         </div>
     </article>

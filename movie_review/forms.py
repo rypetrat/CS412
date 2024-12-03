@@ -42,3 +42,9 @@ class UpdateReviewForm(forms.ModelForm):
     class Meta:
         model = Review
         fields = ['review_message', 'review_score']
+
+class UpdateMovieForm(forms.ModelForm):
+    '''Defines the form for updating a Movie.'''
+    class Meta:
+        model = Movie
+        fields = ['genre', 'rating', 'director', 'release_date', 'description', 'poster_img', 'runtime']

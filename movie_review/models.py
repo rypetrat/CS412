@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.db.models import Avg
 
 class Movie(models.Model):
     '''Encapsulates the idea of a Movie'''
@@ -27,6 +28,10 @@ class Movie(models.Model):
         '''Returns all the people who have this movie in their Watchlist.'''
         watched = Reviewer.objects.filter(id__in=Watchlist.objects.filter(movie=self).values('reviewer'))
         return watched
+    
+    def average_rating(self):
+        """Calculate the average review score for the movie."""
+        return self.get_reviews().aggregate(average=Avg('review_score'))['average'] or 0
 
 class Review(models.Model):
     '''Encapsulates the idea of a Review on a Movie'''
@@ -63,6 +68,10 @@ class Reviewer(models.Model):
         '''Returns the watchlist of this Reviewer.'''
         watchlist = Watchlist.objects.filter(reviewer=self)
         return watchlist
+    
+    def average_rating(self):
+        """Calculate the average score of all reviews given by the reviewer."""
+        return self.get_reviews().aggregate(average=Avg('review_score'))['average'] or 0
 
 class Watchlist(models.Model):
     '''Encapsulates the idea of a Watchlist for a Reviewer'''

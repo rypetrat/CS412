@@ -4,10 +4,15 @@
 {% block content %}
 <main class="grid-container">
     <!-- Display for the Movie's information -->
+    <div>
+        <a href="{% url 'update_movie' movie.pk %}">Update Movie</a>
+    </div>
+
     <article class="featured">
         <div>
             <h2>
                 {{ movie.title }} <br>
+                Reviewer's Score: {{ movie.average_rating|floatformat:2 }} / 5 <br>
                 <img src="{{ movie.poster_img.url }}" alt="Poster Image" style="max-width: 400px; max-height: 400px;"> <br>
                 Genre: {{ movie.genre }} <br>
                 Rating: {{ movie.rating }} <br>

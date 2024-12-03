@@ -22,7 +22,7 @@ class ShowAllMovieView(ListView):
         return super().dispatch(*args, **kwargs)
 
     def get_queryset(self):
-        # Orders movies alphabetically by title
+        '''Orders movies alphabetically by title.'''
         return Movie.objects.all().order_by('title')
 
 class MoviePageView(DetailView):
@@ -47,7 +47,7 @@ class ShowAllReviewerView(ListView):
         return super().dispatch(*args, **kwargs)
     
     def get_queryset(self):
-        # Order movies alphabetically by last and then first name
+        '''Order movies alphabetically by last and then first name.'''
         return Reviewer.objects.all().order_by('last_name', 'first_name')
     
 class ReviewerPageView(DetailView):
@@ -67,7 +67,7 @@ class ShowAllReviewView(ListView):
         return super().dispatch(*args, **kwargs)
     
     def get_queryset(self):
-        # Order reviews by review_date in descending order
+        '''Order reviews by review_date in descending order.'''
         return Review.objects.all().order_by('-review_date')
 
 class CreateReviewerView(CreateView):
@@ -95,14 +95,14 @@ class CreateReviewerView(CreateView):
             return self.form_invalid(form)
     
     def form_invalid(self, form):
-        # Display errors for both forms
+        '''Display errors for both forms'''
         context = self.get_context_data()
         context['user_creation_form'] = UserCreationForm(self.request.POST)
         context['form'] = form
         return self.render_to_response(context)
     
     def get_success_url(self):
-        # redirect upon successful reviewer creation to that new reviewer's page
+        '''Redirect upon successful reviewer creation to that new reviewer's page.'''
         return reverse('reviewer', kwargs={'pk': self.object.pk})
 
 class CreateMovieView(CreateView):
@@ -141,13 +141,10 @@ class CreateReviewView(LoginRequiredMixin, CreateView):
         # Get the current user and their associated reviewer object
         user = self.request.user
         reviewer = Reviewer.objects.get(user=user)
-        
         # Fetch movies already reviewed by this reviewer
         reviewed_movie_ids = Review.objects.filter(reviewer=reviewer).values_list('movie_id', flat=True)
-        
         # Fetch movies not yet reviewed by this reviewer, ordered alphabetically by title
         movies_not_reviewed = Movie.objects.exclude(id__in=reviewed_movie_ids).order_by('title')
-        
         # Add the filtered and sorted movies to the form's movie field queryset
         context = super().get_context_data(**kwargs)
         context['form'].fields['movie'].queryset = movies_not_reviewed
@@ -169,7 +166,7 @@ class CreateReviewView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
     
     def get_success_url(self):
-        # redirect upon successful creation of a new comment to the movie being reviewed's page
+        '''Redirect upon successful creation of a new comment to the movie being reviewed's page.'''
         return reverse('movie', kwargs={'pk': self.object.movie.pk})
 
 class CreateWatchlistView(LoginRequiredMixin, CreateView):
@@ -182,11 +179,9 @@ class CreateWatchlistView(LoginRequiredMixin, CreateView):
         # Get the current user and their associated reviewer object
         user = self.request.user
         reviewer = Reviewer.objects.get(user=user)
-        
         # Fetch movies not in the reviewer's watchlist and sort them alphabetically by title
         movies_in_watchlist = Watchlist.objects.filter(reviewer=reviewer).values_list('movie', flat=True)
         available_movies = Movie.objects.exclude(id__in=movies_in_watchlist).order_by('title')
-        
         # Add the sorted movies to the form's movie field queryset
         context = super().get_context_data(**kwargs)
         context['form'].fields['movie'].queryset = available_movies
@@ -196,12 +191,14 @@ class CreateWatchlistView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         reviewer = get_object_or_404(Reviewer, user=self.request.user)
         watchlist = form.save(commit=False)
-        watchlist.reviewer = reviewer  # links to the reviewer
-        watchlist.save()  # Save the watchlist with the linked reviewer 
+        # links to the reviewer
+        watchlist.reviewer = reviewer  
+        # Save the watchlist with the linked reviewer
+        watchlist.save()   
         return super().form_valid(form)
     
     def get_success_url(self):
-        # redirect to reviewer's page upon successful addition of a movie to watchlist
+        '''Redirect to reviewer's page upon successful addition of a movie to watchlist.'''
         return reverse('reviewer', kwargs={'pk': self.object.reviewer.pk})
 
 class UpdateReviewerView(LoginRequiredMixin, UpdateView):
@@ -255,3 +252,13 @@ class DeleteWatchlistView(LoginRequiredMixin, DeleteView):
     def get_success_url(self):
         reviewer = get_object_or_404(Reviewer, user=self.request.user)
         return reverse('reviewer', kwargs={'pk': reviewer.pk})
+    
+class UpdateMovieView(UpdateView):
+    '''Handles the updating of a Review.'''
+    model = Movie
+    form_class = UpdateMovieForm
+    template_name = 'movie_review/update_movie_form.html'
+    context_object_name = 'movie'
+
+    def get_success_url(self):
+        return reverse('movie', kwargs={'pk': self.object.pk})
