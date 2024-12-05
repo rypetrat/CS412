@@ -1,22 +1,22 @@
 {% extends 'movie_review/base.html' %}
 {% block content %}
-
 <main class="grid-container">
-    <div>
-        <a href="{% url 'movie_search' %}">Search for Movies</a>
+    <!-- Contains the link to send to the search for movies page -->
+    <div class="all-movies">
         <h1>All Movies:</h1>
+        <strong><a href="{% url 'movie_search' %}">Search for Movies</a></strong>
     </div>
     
-    {% for m in movies %}
     <!-- Shows all movies that have been added to the database and links to individual movie pages -->
-    <article>
-        <div>
+    <div class="movies-grid">
+        {% for m in movies %}
+        <article class="movies-entry">
             <a href="{% url 'movie' m.pk %}">
                 <h2>{{m.title}}</h2>
             </a>
             {% if m.poster_img %}
                 <a href="{% url 'movie' m.pk %}">
-                    <img src="{{ m.poster_img.url }}" alt="Poster Image" style="max-width: 200px; max-height: 200px;">
+                    <img src="{{ m.poster_img.url }}" alt="Poster Image" class="movies-poster">
                 </a>
             {% endif %}
             <h3>
@@ -25,8 +25,8 @@
                 Genre: {{m.genre}} <br>
                 Released: {{m.release_date}} 
             </h3> 
-        </div>
-    </article>
-    {% endfor %}
+        </article>
+        {% endfor %}
+    </div>
 </main>
 {% endblock %}

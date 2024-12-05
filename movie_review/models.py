@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 
-
 class Movie(models.Model):
     '''Encapsulates the idea of a Movie'''
     title = models.CharField(max_length=100, blank=False)

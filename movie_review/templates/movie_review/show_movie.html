@@ -2,55 +2,56 @@
 {% load static %}
 
 {% block content %}
-<main class="grid-container">
-    <!-- Display for the Movie's information -->
+<main class="movie-container">
+    <!-- Update Movie Link -->
     <div>
-        <a href="{% url 'update_movie' movie.pk %}">Update Movie</a>
+        <strong><a href="{% url 'update_movie' movie.pk %}">Update Movie</a></strong>
     </div>
 
-    <article class="featured">
-        <div>
-            <h2>
-                {{ movie.title }} <br>
-                Reviewer's Score: {{ movie.average_rating|floatformat:2 }} / 5 <br>
-                <img src="{{ movie.poster_img.url }}" alt="Poster Image" style="max-width: 400px; max-height: 400px;"> <br>
-                Genre: {{ movie.genre }} <br>
-                Rating: {{ movie.rating }} <br>
-                <br>
-                Director: {{ movie.director }} <br>
-                Release Date: {{ movie.release_date }} <br>
-                <br>
-                Description: {{ movie.description }} <br>
-                Runtime: {{ movie.runtime }} Minutes <br>
+    <!-- Movie Details -->
+    <section class="movie-details">
+        <div class="poster-section">
+            <h2 class="movie-title">
+                {{ movie.title }}
             </h2>
+            <p class="movie-rating">
+                Reviewer's Score: {{ movie.average_rating|floatformat:2 }} / 5
+            </p>
+            <img class="poster-img" src="{{ movie.poster_img.url }}" alt="Poster Image">
         </div>
-    </article>
+        <div class="info-section">
+            <p><strong>Genre:</strong> {{ movie.genre }}</p>
+            <p><strong>Rating:</strong> {{ movie.rating }}</p>
+            <p><strong>Director:</strong> {{ movie.director }}</p>
+            <p><strong>Release Date:</strong> {{ movie.release_date }}</p>
+            <p><strong>Runtime:</strong> {{ movie.runtime }} Minutes</p>
+            <p><strong>Description:</strong> {{ movie.description }}</p>
+        </div>
+    </section>
 
-    <!-- Display for the Reviews for each movie -->
-    <div>
+    <!-- Movie Reviews -->
+    <div class="reviews-section">
         <h2>Reviews:</h2>
         {% for m in movie.get_reviews %}
-        <article>
-            <div>
-                <strong>{{m.reviewer}}'s Review: "{{ m.review_message }}" [Score: {{m.review_score}}/5], at {{ m.review_date }}.</strong>
-            </div>
-        </article>
+        <div class="review-entry">
+            <strong><a href="{% url 'reviewer' m.reviewer.pk %}">{{m.reviewer}}'s</a></strong> Review [{{m.review_score}}/5]: "{{ m.review_message }}" at {{ m.review_date }}
+        </div>
         {% empty %}
-        <p>No reviews.</p> 
+        <p>No reviews.</p>
         {% endfor %}
     </div>
 
-    <!-- Displays the Reviewers who have this movie in their watchlist -->
-    <div>
+    <!-- Watchlist Section -->
+    <div class="watchlist-section">
         <h2>Reviewers who have watched:</h2>
         {% for w in movie.get_watched %}
-        <article>
-            <div>
-                {{w.first_name}} {{w.last_name}}<br>
-            </div>
-        </article>
+        <div class="watchlist-entry">
+            <a href="{% url 'reviewer' w.pk %}">
+                <strong>{{w.first_name}} {{w.last_name}}</strong>
+            </a>
+        </div>
         {% empty %}
-        <p>Nobody has Watched.</p> 
+        <p>Nobody has Watched.</p>
         {% endfor %}
     </div>
 </main>

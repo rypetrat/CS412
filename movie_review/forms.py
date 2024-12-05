@@ -39,18 +39,19 @@ class UpdateReviewerForm(forms.ModelForm):
         fields = ['email', 'profile_img']
 
 class UpdateReviewForm(forms.ModelForm):
-    '''Defines the form for updating a Review.'''
+    '''Defines the form for updating a Review'''
     class Meta:
         model = Review
         fields = ['review_message', 'review_score']
 
 class UpdateMovieForm(forms.ModelForm):
-    '''Defines the form for updating a Movie.'''
+    '''Defines the form for updating a Movie'''
     class Meta:
         model = Movie
         fields = ['genre', 'rating', 'director', 'release_date', 'description', 'poster_img', 'runtime']
 
 class MovieFilterForm(forms.Form):
+    '''Defines what a user can filter Movies by'''
     # Filter by title
     title = forms.CharField(max_length=100, required=False, label="Title")
     # Filter by rating
@@ -68,6 +69,7 @@ class MovieFilterForm(forms.Form):
     max_runtime = forms.IntegerField(min_value=0, required=False, label="Maximum Runtime (minutes)")
 
 class ReviewerFilterForm(forms.Form):
+    '''Defines what a user can filter reviewers by'''
     # Filter by title
     first_name = forms.CharField(max_length=100, required=False, label="First name")
     # Filter by title

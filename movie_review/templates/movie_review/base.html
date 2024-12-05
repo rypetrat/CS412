@@ -2,7 +2,8 @@
 <html>
     <head>
         <title>Movie Review</title>
-        <link rel="stylesheet" href="/static/finalProject.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Anuphan">
+        <link rel="stylesheet" href="/static/finalProjectStyles.css">
     </head>
     
     <body>
@@ -17,30 +18,20 @@
                 <li class="nav-item"><a href="{% url 'show_all_reviewers' %}">All Reviewers</a></li>
                 <li class="nav-item"><a href="{% url 'show_all_reviews' %}">All Reviews</a></li>
                 <li class="nav-item"><a href="{% url 'add_movie' %}">Add Movie</a></li>
-                <li class="nav-item"><a href="{% url 'create_reviewer' %}">Create Profile</a></li>
+                <li class="nav-item"><a href="{% url 'create_reviewer' %}">Register Reviewer</a></li>
                 <!-- only show the links that need an authenticated user if signed in -->
                 {% if request.user.is_authenticated %}
                     <li class="nav-item"><a href="{% url 'create_review' %}">Create New Review</a></li>
-                    <li class="nav-item"><a href="{% url 'add_to_watchlist' %}">Add Movie to Watchlist</a></li>
-                    <li class="nav-item">
-                        
-                        <a href="#" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
-                        <form id="logout-form" method="POST" action="{% url 'logout' %}" style="display: none;">
-                            {% csrf_token %}
-                        </form>
-                    </li>
+                    <li class="nav-item"><a href="{% url 'add_to_watchlist' %}">Add to Watchlist</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                    <form id="logout-form" method="POST" action="{% url 'logout' %}" style="display: none;">
+                        {% csrf_token %}
+                    </form></li>
                 {% else %}
                     <li class="nav-item"><a href="{% url 'login' %}" class="nav-link">Login</a></li>
                 {% endif %}
+                <li class="nav-item">{% if request.user.is_authenticated %} Logged in: {{ request.user }} {% else %} Not logged in. {% endif %}</li>
             </ul>
-            <!-- display logged in user for debugging -->
-            <p>
-                {% if request.user.is_authenticated %}
-                    Logged in user: {{ request.user }}
-                    {% else %}
-                    Not logged in.
-                {% endif %}
-            </p>
         </nav>
     {% block content %}
     {% endblock %}    

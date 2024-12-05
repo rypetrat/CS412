@@ -1,11 +1,11 @@
-<head>
-    <title>Create Reviewer</title>   
-</head>
-
 {% extends 'movie_review/base.html' %}
 {% block content %}
 <div>
-    <h1>Create Reviewer</h1>
+    <!-- Header -->
+    <div>
+        <h1>Register Reviewer</h1>
+    </div>
+    
     <form action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <!-- Display form fields with labels from CreateReviewerForm -->

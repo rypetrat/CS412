@@ -2,23 +2,25 @@
 {% block content %}
 
 <main class="grid-container">
-    <h1>All Reviews:</h1>
-    {% for r in reviews %}
-    <!-- Shows all reviewers that have been added to the database and links to individual profile pages -->
-    <article>
-        <div>
+    <div class="all-reviews">
+        <h1>All Reviews:</h1>
+    </div>
+    <!-- Shows all reviews that have been added to the database and links to individual profile pages as well as the movies-->
+    <div class="reviews-grid">
+        {% for r in reviews %}
+        <article class="reviews-entry">
             <h2> 
                 <a href="{% url 'reviewer' r.reviewer.pk %}"> {{ r.reviewer }}'s</a>
                 review of 
                 <a href="{% url 'movie' r.movie.pk %}"> {{ r.movie }} </a>
             </h2>
             <h3>
-                Review: {{r.review_message}} <br>
                 Score: {{r.review_score}}/5 <br>
-                Reviewed at: {{r.review_date}} <br>
+                Review: {{r.review_message}} <br>
+                Reviewed at: {{r.review_date}}
             </h3> 
-        </div>
-    </article>
-    {% endfor %}
+        </article>
+        {% endfor %}
+    </div>
 </main>
 {% endblock %}

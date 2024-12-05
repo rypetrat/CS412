@@ -1,58 +1,65 @@
 {% extends 'movie_review/base.html' %}
-{% load static %}
-
 {% block content %}
-<main class="grid-container">
-    <!-- If the user is on their own reviewer page give the option to update their information -->
+<main class="reviewer-container">
+    <!-- If the user is on their own reviewer page, give the option to update their information -->
     <div>
         {% if request.user.is_authenticated and request.user == reviewer.user %}
-            <a href="{% url 'update_reviewer' %}">Update Reviewer</a>
+            <strong><a href="{% url 'update_reviewer' %}">Update Reviewer</a></strong>
         {% endif %}
     </div>
 
-    <!-- Display for the Reviewers's information -->
-    <article class="featured">
-        <div>
-            <h2>
-                {{ reviewer.first_name }} {{ reviewer.last_name }}, Average Movie Score: {{ reviewer.average_rating|floatformat:2 }} / 5<br>
-                <img src="{{ reviewer.profile_img.url }}" alt="Profile Image" style="max-width: 400px; max-height: 400px;"> 
-            </h2>
-            Email: {{reviewer.email}}
+    <!-- Display for the Reviewer's information -->
+    <div class="reviewer-details">
+        <div class="profile-section">
+            <img src="{{ reviewer.profile_img.url }}" alt="Profile Image" class="profile-img">
         </div>
-    </article>
-
-    <!-- Display for the Reviews by this Reviewer -->
-    <div>
-        <h2>Reviews:</h2>
-        {% for r in reviewer.get_reviews %}
-        <article>
-            <div>
-                {{r.movie}}: "{{ r.review_message }}" [Score: {{r.review_score}}/5], at {{ r.review_date }}
-                {% if request.user.is_authenticated and request.user == reviewer.user %}
-                    <a href="{% url 'delete_review' r.pk %}">Delete Review</a>
-                    <a href="{% url 'update_review' r.pk %}">Update Review</a>
-                {% endif %}
-            </div><br>
-        </article>
-        {% empty %}
-        <p>No reviews to display.</p> 
-        {% endfor %}
+        <div class="info-section-r">
+            <h2 class="reviewer-title">
+                {{ reviewer.first_name }} {{ reviewer.last_name }}
+            </h2>
+            <p class="reviewer-rating">
+                Average Movie Score: {{ reviewer.average_rating|floatformat:2 }} / 5
+            </p>
+            <p>Email: {{ reviewer.email }}</p>
+        </div>
     </div>
 
-    <!-- Displays this Reviewer's Watchlist -->
-    <div>
-        <h2>Watchlist:</h2>
-        {% for w in reviewer.get_watchlist %}
-        <article>
+    <!-- Display for the Reviews by this Reviewer -->
+    <div class="reviews-section">
+        <h2>Reviews:</h2>
+        {% for r in reviewer.get_reviews %}
+        <article class="review-entry">
             <div>
-                {{w.movie}}
+                <strong><a href="{% url 'movie' r.movie.pk %}">{{r.movie}}</a></strong> [{{r.review_score}}/5]: "{{ r.review_message }}" at {{ r.review_date }}
                 {% if request.user.is_authenticated and request.user == reviewer.user %}
-                    <a href="{% url 'delete_watchlist' w.pk %}">Remove</a>
+                    <div class="action-links-review">
+                        <strong><a href="{% url 'delete_review' r.pk %}">Delete Review</a></strong>
+                        <strong><a href="{% url 'update_review' r.pk %}">Update Review</a></strong>
+                    </div>
                 {% endif %}
             </div>
         </article>
         {% empty %}
-        <p>No Movies Watched.</p> 
+        <p>No reviews to display.</p>
+        {% endfor %}
+    </div>
+
+    <!-- Display the Reviewer's Watchlist -->
+    <div class="watchlist-section">
+        <h2>Watchlist:</h2>
+        {% for w in reviewer.get_watchlist %}
+        <article class="watchlist-entry">
+            <div>
+                <strong><a href="{% url 'movie' w.movie.pk %}">{{w.movie}}</a></strong>
+                {% if request.user.is_authenticated and request.user == reviewer.user %}
+                    <div class="action-links-watchlist">
+                        <strong><a href="{% url 'delete_watchlist' w.pk %}">Remove</a></strong>
+                    </div>
+                {% endif %}
+            </div>
+        </article>
+        {% empty %}
+        <p>No Movies Watched.</p>
         {% endfor %}
     </div>
 </main>

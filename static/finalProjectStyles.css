@@ -1,0 +1,326 @@
+/* General styling */
+body {
+    background: #594F4F;
+    color: #9DE0AD;
+    font-family: 'Anuphan';
+    font-weight: 100;
+}
+header {
+    color: #E5FCC2;
+    background: #45ADA8;
+    justify-content: center;
+    display: flex;
+    padding: 0;
+}
+a {
+    text-decoration: none;
+    color: #FDFDFD;
+}
+
+/* Navbar styling */
+.navbar {
+    border-top: 10px solid #594F4F;
+    background-color: #E5FCC2;
+    padding: 1rem;
+}
+.navbar-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+.nav-item {
+    margin: 0 1rem;
+    color: #594F4F;
+    font-size: 1.2rem;
+}
+.nav-item a {
+    text-decoration: none;
+    color: #547980;
+    font-size: 1.2rem;
+}
+.nav-item a:hover {
+    color: #45ADA8;
+}
+
+/* showAllMovies page styling */
+.all-movies {
+    color: #E5FCC2;
+}
+.grid-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+}
+.movies-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 20px;
+}
+.movies-entry {
+    background-color: #E5FCC2;
+    padding: 15px;
+    border-radius: 8px; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border: 5px solid #9DE0AD;
+    box-shadow: 0 10px 14px rgba(0, 0, 0, 0.2);
+}
+.movies-entry img {
+    display: block;
+    margin: 0 auto 10px;
+}
+.movies-entry h2 {
+    margin: 10px 0;
+    font-size: 18px;
+    color: #594F4F;
+}
+.movies-entry h3 {
+    font-size: 14px;
+    color: #594F4F;
+}
+.movies-poster {
+    width: 250px;
+    height: 250px;
+    object-fit: cover; 
+    display: block;
+    margin: 0 auto 10px; 
+    border: 5px solid #9DE0AD; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+}
+
+/* showAllReviewers page styling */
+.all-reviewers {
+    color: #45ADA8;
+}
+.reviewers-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 20px;
+}
+.reviewers-entry {
+    background-color: #45ADA8;
+    padding: 15px;
+    border-radius: 8px; 
+    border: 5px solid #2f7572;
+    box-shadow: 0 10px 14px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+.reviewers-entry img {
+    display: block;
+    margin: 0 auto 10px;
+}
+.reviewers-entry h2 {
+    margin: 10px 0;
+    font-size: 18px;
+    color: #594F4F;
+}
+.reviewers-entry h3 {
+    font-size: 14px;
+    color: #594F4F;
+}
+.reviewers-pfp {
+    width: 200px;
+    height: 200px;
+    object-fit: cover; 
+    display: block;
+    margin: 0 auto 10px;
+    border: 5px solid #2f7572; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+}
+
+/* showAllReviews page styling */
+.all-reviews {
+    color: #547980;
+}
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 20px;
+}
+.reviews-entry {
+    background-color: #547980;
+    padding: 15px;
+    border-radius: 8px; 
+    border: 5px solid #45ADA8;
+    box-shadow: 0 10px 14px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+.reviews-entry img {
+    display: block;
+    margin: 0 auto 10px;
+}
+.reviews-entry h2 {
+    margin: 10px 0;
+    font-size: 18px;
+    color: #594F4F;
+}
+.reviews-entry h3 {
+    text-align: center;
+    font-size: 14px;
+    color: #594F4F;
+}
+
+/* ShowMovie page styling */
+.movie-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.movie-details {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    border: 2px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #E5FCC2;
+    color: #547980;
+}
+.poster-section {
+    flex: 0 0 300px;
+    text-align: center;
+}
+.poster-img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-top: 10px;
+    border: 5px solid white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.movie-title {
+    background: #594F4F;
+    padding: 5px;
+    border-radius: 18px;
+    font-size: 36px;
+    margin-bottom: 10px;
+    color: #E5FCC2;
+}
+.movie-rating {
+    background: #594F4F;
+    padding: 5px;
+    border-radius: 12px;
+    font-size: 18px;
+    color: #E5FCC2;
+}
+.info-section {
+    background: #594F4F;
+    padding: 5;
+    border-radius: 12px;
+    flex: 1;
+    font-size: 20px;
+    line-height: 1.5;
+    color: #E5FCC2;
+}
+.info-section p {
+    margin: 20px 10;
+}
+
+/* ShowReviewer page styling */
+.reviewer-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.reviewer-details {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    border: 2px solid white;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #45ADA8;
+}
+.profile-section {
+    flex: 0 0 300px; 
+    text-align: center;
+}
+.profile-img {
+    width: 100%; 
+    height: auto;
+    border-radius: 40px; 
+    border: 5px solid #2f7572; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-top: 10px;
+}
+.reviewer-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #45ADA8;
+}
+.reviewer-rating {
+    font-size: 18px;
+    color: #45ADA8;
+}
+.info-section-r {
+    background: #594F4F;
+    padding: 5px;
+    text-align: center;
+    border-radius: 14px; 
+    flex: 1;
+    font-size: 16px;
+    line-height: 1.5;
+}
+.info-section-r p {
+    color: #45ADA8;
+    margin: 10px 0;
+}
+.action-links-review a {
+    color: #594F4F;
+    text-decoration: none;
+    margin-right: 10px;
+}
+.action-links-review a:hover {
+    color: #FDFDFD;
+}
+.action-links-watchlist a {
+    color: #594F4F;
+    text-decoration: none;
+    margin-right: 10px;
+}
+.action-links-watchlist a:hover {
+    color: #FDFDFD;
+}
+
+/* Review and watchlist sections in showReviewer and showMovie */
+.reviews-section {
+    border-top: 2px solid #E5FCC2;
+    padding-top: 20px;
+    color: #547980;
+}
+.review-entry {
+    background-color: #547980;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    color: #FDFDFD;
+    border: 1px solid #FDFDFD; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-top: 10px;
+}
+.watchlist-section {
+    border-top: 2px solid #547980;
+    padding-top: 20px;
+    color: #45ADA8;
+}
+.watchlist-entry {
+    background-color: #45ADA8;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #FDFDFD;
+    border: 1px solid #FDFDFD; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-top: 10px;
+}

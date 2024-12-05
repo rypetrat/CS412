@@ -2,29 +2,30 @@
 {% block content %}
 
 <main class="grid-container">
-    <div>
-        <a href="{% url 'reviewer_search' %}">Search for Reviewers</a>
+    <div class="all-reviewers">
         <h1>All Reviewers:</h1>
+        <strong><a href="{% url 'reviewer_search' %}">Search for Reviewers</a></strong>
     </div>
     
-    {% for r in reviewers %}
+    
     <!-- Shows all reviewers that have been added to the database and links to individual profile pages -->
-    <article>
-        <div>
+    <div class="reviewers-grid">
+        {% for r in reviewers %}
+        <article class="reviewers-entry">
             <a href="{% url 'reviewer' r.pk %}">
                 <h2>{{r.first_name}} {{r.last_name}}</h2>
             </a>
             {% if r.profile_img %}
                 <a href="{% url 'reviewer' r.pk %}">
-                    <img src="{{ r.profile_img.url }}" alt="Profile Image" style="max-width: 200px; max-height: 200px;">
+                    <img src="{{ r.profile_img.url }}" alt="Profile Image" class="reviewers-pfp">
                 </a>
             {% endif %}
             <h3>
                 Average Review Score: {{ r.average_rating|floatformat:2 }} / 5 <br>
                 Email: {{r.email}} 
             </h3> 
-        </div>
-    </article>
-    {% endfor %}
+        </article>
+        {% endfor %}
+    </div>
 </main>
 {% endblock %}

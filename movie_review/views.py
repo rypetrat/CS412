@@ -160,7 +160,6 @@ class CreateReviewView(LoginRequiredMixin, CreateView):
         review.movie = movie
         review.reviewer = reviewer
         review.save()
-        
         return super().form_valid(form)
     
     def get_success_url(self):
