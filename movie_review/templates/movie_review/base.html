@@ -1,14 +1,14 @@
 {% load static %}
 <html>
     <head>
-        <title>Movie Review</title>
+        <title>Reviews & Ratings</title>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Anuphan">
         <link rel="stylesheet" href="/static/finalProjectStyles.css">
     </head>
     
     <body>
         <header>
-            <h1>Movie Ratings and Reviews</h1>
+            <h1>Movie Ratings & Reviews</h1>
         </header>
 
         <nav class="navbar">
@@ -30,7 +30,8 @@
                 {% else %}
                     <li class="nav-item"><a href="{% url 'login' %}" class="nav-link">Login</a></li>
                 {% endif %}
-                <li class="nav-item">{% if request.user.is_authenticated %} Logged in: {{ request.user }} {% else %} Not logged in. {% endif %}</li>
+                <li class="nav-item user-info">
+                    {% if request.user.is_authenticated %} <span>Logged in: {{ request.user }}</span> {% else %} Not logged in.{% endif %}</li>
             </ul>
         </nav>
     {% block content %}

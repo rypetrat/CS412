@@ -1,16 +1,15 @@
 {% extends 'movie_review/base.html' %}
 {% block content %}
-<div>
+<div class="container-watchlist-add">
     <h1>Add Movie to Watchlist</h1>
-    <form action="" method="POST" enctype="multipart/form-data">
+    <form action="" method="POST" enctype="multipart/form-data" class="form-watchlist-add">
         {% csrf_token %}
-        <div>
-            <label for="id_movie">Movie:</label>
+        <div class="form-group-watchlist-add">
             {{ form.movie }}
         </div>
 
-        <div>
-            <input type="submit" value="Add Movie">
+        <div class="form-group-watchlist-add">
+            <input type="submit" value="Add Movie" class="btn-submit-watchlist-add">
         </div>
     </form>
 </div>

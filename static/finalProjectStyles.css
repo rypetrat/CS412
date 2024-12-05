@@ -5,6 +5,12 @@ body {
     font-family: 'Anuphan';
     font-weight: 100;
 }
+input[type="text"], textarea {
+    font-family: "Anuphan"
+}
+select {
+    font-family: "Anuphan";
+}
 header {
     color: #E5FCC2;
     background: #45ADA8;
@@ -16,12 +22,35 @@ a {
     text-decoration: none;
     color: #FDFDFD;
 }
+a:hover {
+    color: #E5FCC2;
+}
+.reviewer-edit {
+    text-decoration: none;
+    color: #FDFDFD;
+}
+.reviewer-edit:hover {
+    color: #45ADA8;
+}
+.reviewer-edit-movie {
+    text-decoration: none;
+    color: #FDFDFD;
+}
+.reviewer-edit-movie:hover {
+    color: #547980;
+}
+.reviewer-text {
+    color: #45ADA8;
+}
 
 /* Navbar styling */
 .navbar {
     border-top: 10px solid #594F4F;
     background-color: #E5FCC2;
     padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .navbar-nav {
     list-style: none;
@@ -29,16 +58,20 @@ a {
     margin: 0;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 .nav-item {
     margin: 0 1rem;
     color: #594F4F;
     font-size: 1.2rem;
+    align-items: center;
+    justify-content: space-between;
 }
 .nav-item a {
     text-decoration: none;
     color: #547980;
     font-size: 1.2rem;
+    transition: color 0.3s ease;
 }
 .nav-item a:hover {
     color: #45ADA8;
@@ -323,4 +356,190 @@ a {
     border: 1px solid #FDFDFD; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     margin-top: 10px;
+}
+
+/* createWatchlist form styling */
+.container-watchlist-add {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1rem;
+}
+.form-watchlist-add {
+    background: #E5FCC2;
+    border: 3px solid #9DE0AD;
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+.container-watchlist-add #id_movie {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 2px solid #9DE0AD;
+    border-radius: 4px;
+    background-color: #9DE0AD;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.2s ease-in-out;
+}
+.container-watchlist-add #id_movie:focus {
+    border-color: #7ab888;
+    outline: none;
+}
+.btn-submit-watchlist-add {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1.2rem;
+    color: #594F4F;
+    background-color: #9DE0AD;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.5s ease;
+    margin-top: 1rem;
+}
+.btn-submit-watchlist-add:hover {
+    background-color: #7ab888;
+}
+
+/* createReview form styling */
+.form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    
+}
+.form {
+    background: #547980;
+    border: 3px solid #45ADA8;
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+.form-label {
+    display: block;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+.form-container.create-review-form #id_movie, 
+.form-container.create-review-form #id_review_message, 
+.form-container.create-review-form #id_review_score {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 2px solid #45ADA8;
+    border-radius: 4px;
+    background-color: #45ADA8;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.2s ease-in-out;
+}
+.form-container.create-review-form #id_movie:focus, 
+.form-container.create-review-form #id_review_message:focus, 
+.form-container.create-review-form #id_review_score:focus {
+    border-color: #258682;
+    outline: none;
+}
+.btn-submit {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1.2rem;
+    color: #594F4F;
+    background-color: #45ADA8;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.5s ease;
+    margin-top: 1rem;
+}
+.btn-submit:hover {
+    background-color: #349c96;
+}
+
+/* createReviewer form styling */
+.form-container.register-reviewer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.form-container.register-reviewer form {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px; 
+    padding: 2rem;
+    background-color: #45ADA8;
+    border: 3px solid #2f7572;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+.form-container.register-reviewer h2 {
+    text-align: center;
+    color: #FDFDFD; 
+}
+.form-container.register-reviewer div {
+    margin-bottom: 1.5rem;
+}
+.form-container.register-reviewer label {
+    font-size: 1.1rem;
+    color: #333333; 
+    margin-bottom: 0.5rem;
+}
+.form-container.register-reviewer input, 
+.form-container.register-reviewer select {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1rem;
+    border: 3px solid #2f7572;
+    border-radius: 4px;
+    background-color: #547980;
+    transition: border-color 0.5s ease;
+    color: #FDFDFD;
+}
+.form-container.register-reviewer input[type="submit"] {
+    background-color: #547980;
+    color: white;
+    font-size: 1.1rem;
+    border: none;
+    cursor: pointer;
+    padding: 0.8rem;
+    border-radius: 4px;
+    transition: background-color 0.5s ease;
+}
+.form-container.register-reviewer input[type="submit"]:hover {
+    background-color: #2f7572;
+}
+.form-container.register-reviewer input:focus, 
+.form-container.register-reviewer select:focus {
+    border-color: #2f7572;
+    outline: none;
+}
+.form-container.register-reviewer input[type="file"] {
+    display: none;
+}
+.form-container.register-reviewer .file-upload-btn {
+    background-color: #547980;
+    color: #FDFDFD;
+    font-size: 1rem; 
+    padding: 0.8rem 1.5rem; 
+    border-radius: 4px; 
+    cursor: pointer; 
+    text-align: center;
+    display: inline-block;
+    transition: background-color 0.5s ease;
+}
+.form-container.register-reviewer .file-upload-btn:hover {
+    background-color: #2f7572;
+}
+.form-container.register-reviewer .file-name {
+    margin-top: 0.5rem;
+    font-size: 1rem;
+    color: #594F4F;
 }

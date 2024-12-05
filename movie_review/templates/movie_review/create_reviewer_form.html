@@ -1,14 +1,17 @@
 {% extends 'movie_review/base.html' %}
 {% block content %}
-<div>
+<div class="form-container register-reviewer">
     <!-- Header -->
-    <div>
+    <div class="reviewer-text">
         <h1>Register Reviewer</h1>
     </div>
     
     <form action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <!-- Display form fields with labels from CreateReviewerForm -->
+        <div>
+            <h2>Reviewer Details</h2>
+        </div>
         <div>
             <label for="id_first_name">First Name:</label>
             {{ form.first_name }}
@@ -23,11 +26,16 @@
         </div>
         <div>
             <label for="id_profile_img">Profile Image:</label>
+            <!-- Custom file input trigger button -->
+            <label for="id_profile_img" class="file-upload-btn">Choose Profile Image</label>
             {{ form.profile_img }}
+            <!-- Display selected file name after upload -->
+            <div class="file-name" id="file-name"></div>
         </div>
-        
         <!-- Display form fields from UserCreationForm for user account creation -->
-        <h2>User Account Information</h2>
+        <div>
+            <h2>Account Information</h2>
+        </div>
         <div>
             <label for="id_username">Username:</label>
             {{ user_creation_form.username }}
@@ -40,11 +48,20 @@
             <label for="id_password2">Confirm Password:</label>
             {{ user_creation_form.password2 }}
         </div>
-
         <!-- Submit button -->
         <div>
             <input type="submit" value="Create Reviewer">
         </div>
     </form>
 </div>
+<!-- added Javascript for the uploded file name -->
+{% block extra_js %}
+<script>
+    // Show the selected file's name when a file is chosen
+    document.getElementById('id_profile_img').addEventListener('change', function() {
+        var fileName = this.files[0] ? this.files[0].name : '';
+        document.getElementById('file-name').textContent = "Selected: " + fileName;
+    });
+</script>
+{% endblock %}
 {% endblock %}

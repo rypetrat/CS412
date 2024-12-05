@@ -1,25 +1,30 @@
 {% extends 'movie_review/base.html' %}
 {% block content %}
-<div>
-    <h1>Create a new review</h1>
-    <!-- Defines the form for adding a new Review to the database -->
-    <form action="" method="POST" enctype="multipart/form-data">
+<div class="form-container create-review-form">
+    <div class="reviewer-text">
+        <h1>Create a New Review</h1>
+    </div>
+    
+    <form action="" method="POST" enctype="multipart/form-data" class="form">
         {% csrf_token %}
-        <div>
-            <label for="id_movie">Title:</label>
+        
+        <div class="form-group">
+            <label for="id_movie" class="form-label">Title:</label>
             {{ form.movie }}
         </div>
-        <div>
-            <label for="id_review_message">Genre:</label>
+
+        <div class="form-group">
+            <label for="id_review_message" class="form-label">Review Message:</label>
             {{ form.review_message }}
         </div>
-        <div>
-            <label for="id_review_score">Rating Score:</label>
-            {{ form.review_score }} / 5
+
+        <div class="form-group">
+            <label for="id_review_score" class="form-label">Rating Score (0-5):</label>
+            {{ form.review_score }} 
         </div>
         
-        <div>
-            <input type="submit" value="Create New Review">
+        <div class="form-group">
+            <input type="submit" value="Create Review" class="btn-submit">
         </div>
     </form>
 </div>

@@ -4,7 +4,7 @@
     <!-- If the user is on their own reviewer page, give the option to update their information -->
     <div>
         {% if request.user.is_authenticated and request.user == reviewer.user %}
-            <strong><a href="{% url 'update_reviewer' %}">Update Reviewer</a></strong>
+            <strong><a class="reviewer-edit" href="{% url 'update_reviewer' %}">Update Reviewer</a></strong>
         {% endif %}
     </div>
 
