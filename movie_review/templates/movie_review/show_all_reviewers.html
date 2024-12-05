@@ -2,11 +2,10 @@
 {% block content %}
 
 <main class="grid-container">
-    <div class="all-reviewers">
-        <h1>All Reviewers:</h1>
+    <div>
+        <h1 class="all-reviewers">All Reviewers:</h1>
         <strong><a class="reviewer-edit" href="{% url 'reviewer_search' %}">Search for Reviewers</a></strong>
     </div>
-    
     
     <!-- Shows all reviewers that have been added to the database and links to individual profile pages -->
     <div class="reviewers-grid">
@@ -28,4 +27,5 @@
         {% endfor %}
     </div>
 </main>
+
 {% endblock %}

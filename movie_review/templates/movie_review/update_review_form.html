@@ -1,19 +1,18 @@
 {% extends 'movie_review/base.html' %}
-
 {% block content %}
-<div>
-    <h1>Update Review</h1>
+
+<div class="update-review-container">
+    <h1 class="black-text">Update Review</h1>
     <form method="POST" action="">
         {% csrf_token %}
         {{ form.as_p }}
-        
-        <div>
+        <div class="form-buttons">
             <input type="submit" value="Update" class="button">
-
-            <form method="get" action="{% url 'reviewer' review.reviewer.pk %}">
-                <input type="submit" value="Cancel" class="button"> 
-            </form>
         </div>
     </form>
+    <form method="get" action="{% url 'reviewer' review.reviewer.pk %}">
+        <button type="submit" class="button cancel-button">Cancel</button>
+    </form>
 </div>
+
 {% endblock %}

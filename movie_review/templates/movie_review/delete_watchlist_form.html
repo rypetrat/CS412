@@ -1,14 +1,13 @@
 {% extends 'movie_review/base.html' %}
-
 {% block content %}
-<div>
+
+<div class="remove-watchlist-container">
     <div>
         <h1>Remove from Watchlist</h1>
         <h3>
-            Are you sure you want to remove {{watchlist.movie}}
+            Are you sure you want to remove {{watchlist.movie}} from your watchlist?
         </h3>
     </div>
-    
     
     <div>
         <form method="POST" action="">
@@ -21,4 +20,5 @@
         </form>
     </div>
 </div>
+
 {% endblock %}

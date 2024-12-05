@@ -1,19 +1,56 @@
 {% extends 'movie_review/base.html' %}
-
 {% block content %}
-<div>
-    <h1>Update Movie</h1>
-    <form method="POST" action="">
-        {% csrf_token %}
-        {{ form.as_p }}
-        
-        <div>
-            <input type="submit" value="Update" class="button">
 
-            <form method="get" action="{% url 'movie' movie.pk %}">
-                <input type="submit" value="Cancel" class="button"> 
-            </form>
+<div class="update-movie-container">
+    <h1>Update Movie</h1>
+    <form method="POST" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-fields">
+            <!-- Render all fields except poster_img -->
+            {% for field in form %}
+                {% if field.name != "poster_img" %}
+                    <div>
+                        <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
+                        {{ field }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+
+            <!-- Custom File Upload for poster_img -->
+            <div class="file-upload-wrapper">
+                <input type="file" id="id_poster_img" name="poster_img">
+                <label for="id_poster_img" class="file-upload-btn">Update Poster Image</label><br>
+                <span class="file-name" id="file-name">No file chosen</span>
+            </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="buttons">
+            <input type="submit" value="Update" class="button">
         </div>
     </form>
+    <!-- Cancel Button -->
+    <form method="get" action="{% url 'movie' movie.pk %}">
+        <button type="submit" class="button cancel-button">Cancel</button>
+    </form>
 </div>
+
+<!-- added Javascript for the uploded file name -->
+{% block extra_js %}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const fileInput = document.getElementById('id_poster_img');
+        const fileNameDisplay = document.getElementById('file-name');
+
+        fileInput.addEventListener('change', function () {
+            if (fileInput.files.length > 0) {
+                fileNameDisplay.textContent = "Uploaded: " + fileInput.files[0].name;
+            } else {
+                fileNameDisplay.textContent = 'No file chosen';
+            }
+        });
+    });
+</script>
+
+{% endblock %}
 {% endblock %}

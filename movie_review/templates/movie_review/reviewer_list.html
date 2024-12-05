@@ -1,27 +1,24 @@
 {% extends 'movie_review/base.html' %}
-
 {% block content %}
-  <h2>
-    Filters
-  </h2>
-  <form method="get">
+
+<div class="form-container reviewer-filters">
+  <h1 class="reviewer-text">Reviewer Filters</h1>
+  <form class="black-text" method="get">
     {{ form.as_p }}
     <button type="submit">Filter</button>
   </form>
-
-  <hr>
-
+  
+  <h1 class="reviewer-text">Reviewer List</h1>
   <table>
     <thead>
       <tr>
-        <th>Name</th>
+        <th class="black-text">Name</th>
       </tr>
     </thead>
     <tbody>
-      <h1>Reviewer List</h1>
       {% for reviewer in reviewers %}
         <tr>
-          <td><a href="{% url 'reviewer' reviewer.pk %}">{{ reviewer.first_name }} {{ reviewer.last_name }}</a></td>
+          <td><a class="reviewer-edit" href="{% url 'reviewer' reviewer.pk %}"><strong>{{ reviewer.first_name }} {{ reviewer.last_name }}</strong></a></td>
         </tr>
       {% empty %}
         <tr>
@@ -30,4 +27,6 @@
       {% endfor %}
     </tbody>
   </table>
+</div>
+
 {% endblock %}

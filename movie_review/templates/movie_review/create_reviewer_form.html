@@ -1,5 +1,6 @@
 {% extends 'movie_review/base.html' %}
 {% block content %}
+
 <div class="form-container register-reviewer">
     <!-- Header -->
     <div class="reviewer-text">
@@ -27,7 +28,7 @@
         <div>
             <label for="id_profile_img">Profile Image:</label>
             <!-- Custom file input trigger button -->
-            <label for="id_profile_img" class="file-upload-btn">Choose Profile Image</label>
+            <label for="id_profile_img" class="file-upload-btn">Upload Profile Image</label>
             {{ form.profile_img }}
             <!-- Display selected file name after upload -->
             <div class="file-name" id="file-name"></div>
@@ -54,13 +55,14 @@
         </div>
     </form>
 </div>
+
 <!-- added Javascript for the uploded file name -->
 {% block extra_js %}
 <script>
     // Show the selected file's name when a file is chosen
     document.getElementById('id_profile_img').addEventListener('change', function() {
         var fileName = this.files[0] ? this.files[0].name : '';
-        document.getElementById('file-name').textContent = "Selected: " + fileName;
+        document.getElementById('file-name').textContent = "Uploaded: " + fileName;
     });
 </script>
 {% endblock %}

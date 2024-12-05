@@ -1,12 +1,52 @@
 {% extends 'movie_review/base.html' %}
 {% block content %}
 
-<div>
-    <h1>Update Reviewer {{ first_name }} {{ last_name }}</h1>
+<div class="update-reviewer-container">
+    <h1>Update {{ first_name }} {{ last_name }}'s Reviewer Profile</h1>
     <form action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Update Profile">
+        <!-- Render all fields except poster_img -->
+        {% for field in form %}
+            {% if field.name != "profile_img" %}
+                <div>
+                    <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
+                    {{ field }}
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        <!-- Custom File Upload for poster_img -->
+        <div class="file-upload-wrapper">
+            <input type="file" id="id_profile_img" name="profile_img">
+            <label for="id_profile_img" class="file-upload-btn">Update Profile Image</label><br>
+            <span class="file-name" id="file-name">No file chosen</span>
+        </div>
+
+        <div class="form-buttons">
+            <input type="submit" value="Update Profile" class="button">
+        </div>
+    </form>
+    <form method="get" action="{% url 'reviewer' reviewer.pk %}">
+        <button type="submit" class="button cancel-button">Cancel</button>
     </form>
 </div>
+
+<!-- added Javascript for the uploded file name -->
+{% block extra_js %}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const fileInput = document.getElementById('id_profile_img');
+        const fileNameDisplay = document.getElementById('file-name');
+
+        fileInput.addEventListener('change', function () {
+            if (fileInput.files.length > 0) {
+                fileNameDisplay.textContent = "Uploaded: " + fileInput.files[0].name;
+            } else {
+                fileNameDisplay.textContent = 'No file chosen';
+            }
+        });
+    });
+</script>
+
+{% endblock %}
 {% endblock %}

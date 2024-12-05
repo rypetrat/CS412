@@ -1,17 +1,17 @@
 {% extends 'movie_review/base.html' %}
-
 {% block content %}
-  <h2>
-    Filters
-  </h2>
-  <form method="get">
+
+<div class="form-container movie-filters">
+  <h1>Movie Filters</h1>
+  <form method="get" class="movie-filters-form">
     {{ form.as_p }}
     <button type="submit">Filter</button>
   </form>
-
+  
   <hr>
-
-  <table>
+  
+  <h1>Movie List</h1>
+  <table class="movie-filters-table">
     <thead>
       <tr>
         <th>Title</th>
@@ -23,7 +23,6 @@
       </tr>
     </thead>
     <tbody>
-      <h1>Movie List</h1>
       {% for movie in movies %}
         <tr>
           <td><a href="{% url 'movie' movie.pk %}">{{ movie.title }}</a></td>
@@ -31,13 +30,15 @@
           <td>{{ movie.release_date }}</td>
           <td>{{ movie.genre }}</td>
           <td>{{ movie.average_rating|floatformat:2 }}/5</td>
-          <td>{{ movie.runtime }}</td>
+          <td>{{ movie.runtime }} Minutes</td>
         </tr>
       {% empty %}
         <tr>
-          <td colspan="5">No movies found matching the criteria.</td>
+          <td colspan="6">No movies found matching the criteria.</td>
         </tr>
       {% endfor %}
     </tbody>
   </table>
+</div>
+
 {% endblock %}

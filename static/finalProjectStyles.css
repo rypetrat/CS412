@@ -1,4 +1,4 @@
-/* General styling */
+/* General styling, this whole file is a mess but if it aint broke.. */
 body {
     background: #594F4F;
     color: #9DE0AD;
@@ -41,6 +41,16 @@ a:hover {
 }
 .reviewer-text {
     color: #45ADA8;
+}
+.black-text {
+    color: #333333;
+}
+.movie-edit {
+    text-decoration: none;
+    color: #FDFDFD;
+}
+.movie-edit:hover {
+    color: #E5FCC2;
 }
 
 /* Navbar styling */
@@ -324,7 +334,7 @@ a:hover {
     color: #FDFDFD;
 }
 
-/* Review and watchlist sections in showReviewer and showMovie */
+/* Review and watchlist sections in showReviewer and showMovie, why'd I do this here dont ask me */
 .reviews-section {
     border-top: 2px solid #E5FCC2;
     padding-top: 20px;
@@ -358,7 +368,7 @@ a:hover {
     margin-top: 10px;
 }
 
-/* createWatchlist form styling */
+/* createWatchlistForm page styling */
 .container-watchlist-add {
     display: flex;
     flex-direction: column;
@@ -405,7 +415,7 @@ a:hover {
     background-color: #7ab888;
 }
 
-/* createReview form styling */
+/* createReviewForm page styling */
 .form-container {
     display: flex;
     flex-direction: column;
@@ -463,7 +473,7 @@ a:hover {
     background-color: #349c96;
 }
 
-/* createReviewer form styling */
+/* createReviewerForm page styling */
 .form-container.register-reviewer {
     display: flex;
     flex-direction: column;
@@ -542,4 +552,616 @@ a:hover {
     margin-top: 0.5rem;
     font-size: 1rem;
     color: #594F4F;
+}
+
+/* createMovieForm page styling */
+.add-movie-container {
+    width: 60%;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #E5FCC2;
+    border: 3px solid #2f7572;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.add-movie-container h1 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: #547980;
+}
+.add-movie-container form div {
+    margin-bottom: 1rem;
+}
+.add-movie-container label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    color: #333;
+    font-weight: bold;
+}
+.add-movie-container input[type="text"],
+.add-movie-container input[type="date"],
+.add-movie-container input[type="number"],
+.add-movie-container select,
+.add-movie-container textarea {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 2px solid #7ab888;
+    border-radius: 5px;
+    background-color: #fff;
+    transition: border-color 0.2s;
+}
+.add-movie-container input[type="text"]:focus,
+.add-movie-container input[type="date"]:focus,
+.add-movie-container input[type="number"]:focus,
+.add-movie-container select:focus,
+.add-movie-container textarea:focus {
+    border-color: #547980;
+    outline: none;
+}
+.add-movie-container input[type="file"] {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 1rem;
+}
+.add-movie-container input[type="submit"] {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #547980;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-family: 'Anuphan';
+}
+.add-movie-container input[type="submit"]:hover {
+    background-color: #2f7572;
+}
+.add-movie-container .file-upload-btn {
+    background-color: #547980;
+    color: #FDFDFD;
+    font-size: 1rem; 
+    padding: 0.8rem 1.5rem; 
+    border-radius: 4px; 
+    cursor: pointer; 
+    text-align: center;
+    display: inline-block;
+    transition: background-color 0.5s ease;
+}
+.add-movie-container .file-upload-btn:hover {
+    background-color: #2f7572;
+}
+.add-movie-container .file-name {
+    margin-top: 0.5rem;
+    color: #594F4F;
+}
+
+/* Login page styling */
+.form-container.login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+.form-container.login h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #9DE0AD;
+}
+.form-container.login form {
+    background-color: #E5FCC2;
+    border: 3px solid #2f7572;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+}
+.form-container.login label {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: #594F4F;
+}
+.form-container.login input[type="text"],
+.form-container.login input[type="password"],
+.form-container.login input[type="submit"] {
+    padding: 0.8rem;
+    margin: 0.5rem 0;
+    font-size: 1rem;
+    border: 3px solid #CCC;
+    border-radius: 4px;
+    background-color: #FDFDFD;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease;
+}
+.form-container.login input[type="text"]:focus,
+.form-container.login input[type="password"]:focus {
+    border-color: #547980; 
+    outline: none;
+}
+.form-container.login input[type="submit"] {
+    background-color: #547980;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: 'Anuphan';
+}
+.form-container.login input[type="submit"]:hover {
+    background-color: #45ADA8;
+}
+
+/* reviewerList page styling */
+.form-container.reviewer-filters {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    margin-top: 2rem;
+}
+.form-container.reviewer-filters form {
+    background-color: #45ADA8;
+    padding: 2rem;
+    border: 3px solid #2f7572;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2rem;
+}
+.form-container.reviewer-filters .form-row {
+    margin-bottom: 1rem;
+}
+.form-container.reviewer-filters input[type="text"] {
+    padding: 0.8rem;
+    margin: 0.5rem 0;
+    font-size: 1rem;
+    border: 3px solid #349c96;
+    border-radius: 4px;
+    background-color: #FDFDFD;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease;
+}
+.form-container.reviewer-filters input[type="text"]:focus {
+    border-color: #547980; 
+    outline: none;
+}
+.form-container.reviewer-filters button[type="submit"] {
+    padding: 0.8rem;
+    margin-top: 1rem;
+    font-size: 1rem;
+    background-color: #547980;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.5s ease;
+}
+.form-container.reviewer-filters button[type="submit"]:hover {
+    background-color: #2f7572;
+}
+table {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    border-collapse: collapse;
+    margin-top: 2rem;
+}
+table th, table td {
+    padding: 1rem;
+    text-align: left;
+    border: 3px solid #547980;
+}
+table th {
+    background-color: #45ADA8;
+    font-size: 1.2rem;
+}
+table td {
+    font-size: 1.1rem;
+}
+
+/* movieList page styling  */
+.form-container.movie-filters {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+.form-container.movie-filters form {
+    background-color: #E5FCC2;
+    border: 3px solid #2f7572;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2rem;
+    color: #2f7572;
+}
+.form-container.movie-filters input {
+    padding: 0.8rem;
+    margin: 0.5rem 0;
+    font-size: 1rem;
+    border: 3px solid #349c96;
+    border-radius: 4px;
+    background-color: #FDFDFD;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease;
+}
+.form-container.movie-filters input:focus {
+    border-color: #547980; 
+    outline: none;
+}
+.movie-filters .movie-filters-form #id_rating {
+    padding: 0.8rem;
+    margin: 0.5rem 0;
+    font-size: 1rem;
+    border: 3px solid #349c96;
+    border-radius: 4px;
+    background-color: #FDFDFD;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease;
+}
+.movie-filters .movie-filters-form #id_rating:focus {
+    border-color: #547980; 
+    outline: none;
+}
+.form-container.movie-filters h2 {
+    font-size: 2rem;
+    color: #547980;
+    margin-bottom: 1rem;
+}
+.form-container.movie-filters .form-row {
+    margin-bottom: 1rem;
+}
+.form-container.movie-filters button[type="submit"] {
+    padding: 0.8rem;
+    margin-top: 1rem;
+    font-size: 1rem;
+    background-color: #547980;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.form-container.movie-filters button[type="submit"]:hover {
+    background-color: #9DE0AD;
+}
+.movie-filters-table {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    border-collapse: collapse;
+    margin-top: 2rem;
+}
+.movie-filters-table th, .movie-filters-table td {
+    padding: 1rem;
+    text-align: left;
+    border: 3px solid #E5FCC2;
+}
+.movie-filters-table th {
+    background-color: #9DE0AD;
+    font-size: 1.2rem;
+    color: #333333;
+}
+.movie-filters-table td {
+    font-size: 1.1rem;
+}
+h1 {
+    margin-top: 1rem;
+    color: #E5FCC2;
+}
+hr {
+    margin-top: 2rem;
+    border: 0;
+    border-top: 2px solid #ddd;
+}
+
+/* updateMovieForm page styling */
+.update-movie-container {
+    width: 50%;
+    margin: 3rem auto;
+    padding: 2rem;
+    border: 2px solid #5a8b37;
+    border-radius: 10px;
+    background-color: #E5FCC2;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.update-movie-container h1 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: #365e52;
+}
+.update-movie-container .form-fields {
+    margin-bottom: 1.5rem;
+}
+
+.update-movie-container label {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+}
+.update-movie-container input[type="text"],
+.update-movie-container input[type="date"],
+.update-movie-container input[type="number"],
+.update-movie-container select,
+.update-movie-container textarea {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 2px solid #258682;
+    border-radius: 5px;
+    background-color: #fff;
+    transition: border-color 0.2s;
+    margin-bottom: 1rem;
+}
+.update-movie-container input[type="text"]:focus,
+.update-movie-container input[type="date"]:focus,
+.update-movie-container input[type="number"]:focus,
+.update-movie-container select:focus,
+.update-movie-container textarea:focus {
+    border-color: #5a8b37;
+    outline: none;
+}
+.update-movie-container .buttons {
+    display: inline-block; 
+    margin-right: 1rem; 
+}
+.update-movie-container .button {
+    display: inline-block; 
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #547980;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    text-align: center;
+}
+.update-movie-container .button:hover {
+    background-color: #456e64;
+}
+.update-movie-container .cancel-button {
+    background-color: #cc4b4b;
+}
+.update-movie-container .cancel-button:hover {
+    background-color: #b03e3e;
+}
+.update-movie-container input[type="file"] {
+    display: none;
+}
+.update-movie-container .file-upload-btn {
+    background-color: #547980;
+    color: #FDFDFD;
+    font-size: 1rem; 
+    padding: 0.8rem 1.5rem; 
+    border-radius: 4px; 
+    cursor: pointer; 
+    text-align: center;
+    display: inline-block;
+    transition: background-color 0.5s ease;
+}
+.update-movie-container .file-upload-btn:hover {
+    background-color: #2f7572;
+}
+.update-movie-container .file-name {
+    margin-top: 0.5rem;
+    color: #594F4F;
+}
+
+/* deleteWatchlistForm page styling */
+.remove-watchlist-container {
+    text-align: center;
+    padding: 1rem;
+}
+.remove-watchlist-container form {
+    display: inline-block;
+    margin: 1rem;
+}
+.remove-watchlist-container button,
+.remove-watchlist-container input[type="submit"] {
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    color: #fff;
+    background: #547980;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    text-align: center;
+    margin-right: 1rem;
+}
+.remove-watchlist-container button:hover,
+.remove-watchlist-container input[type="submit"]:hover {
+    background-color: #466b73;
+}
+.remove-watchlist-container input[type="submit"]:nth-child(2) {
+    background-color: #cc4b4b;
+}
+.remove-watchlist-container input[type="submit"]:nth-child(2):hover {
+    background-color: #b03e3e;
+}
+
+/* deleteReviewForm page styling */
+.delete-review-container {
+    text-align: center;
+    padding: 1rem;
+}
+.delete-review-container h1,
+.delete-review-container h3 {
+    color: #45ADA8;
+    margin-bottom: 1rem;
+}
+.delete-review-container form {
+    display: inline-block;
+    margin: 1rem;
+}
+.delete-review-container button,
+.delete-review-container input[type="submit"] {
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #547980;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    text-align: center;
+    margin-right: 1rem;
+}
+.delete-review-container button:hover,
+.delete-review-container input[type="submit"]:hover {
+    background-color: #466b73;
+}
+.delete-review-container input[type="submit"]:nth-child(2) {
+    background-color: #cc4b4b;
+}
+.delete-review-container input[type="submit"]:nth-child(2):hover {
+    background-color: #b03e3e;
+}
+
+/* updateReviewerForm page styling */
+.update-reviewer-container {
+    padding: 1rem;
+    text-align: center;
+}
+.update-reviewer-container h1 {
+    color: #E5FCC2;
+    margin-bottom: 1rem;
+}
+.update-reviewer-container input[type="text"] {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 2px solid #258682;
+    border-radius: 5px;
+    transition: border-color 0.2s;
+    margin-bottom: 1rem;
+}
+.update-reviewer-container input[type="text"]:focus {
+    border-color: #5a8b37;
+    outline: none;
+}
+.update-reviewer-container .form-buttons {
+    margin-top: 1rem;
+}
+.update-reviewer-container input[type="submit"],
+.update-reviewer-container .cancel-button {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #547980;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    text-align: center;
+    margin-right: 1rem;
+}
+.update-reviewer-container input[type="submit"]:hover,
+.update-reviewer-container .cancel-button:hover {
+    background-color: #2f7572;
+}
+.update-reviewer-container .cancel-button {
+    background-color: #cc4b4b;
+}
+.update-reviewer-container .cancel-button:hover {
+    background-color: #b03e3e;
+}
+.update-reviewer-container input[type="file"] {
+    display: none;
+}
+.update-reviewer-container .file-upload-btn {
+    background-color: #547980;
+    color: #FDFDFD;
+    font-size: 1rem; 
+    padding: 0.8rem 1.5rem; 
+    border-radius: 4px; 
+    cursor: pointer; 
+    text-align: center;
+    display: inline-block;
+    transition: background-color 0.5s ease;
+}
+.update-reviewer-container .file-upload-btn:hover {
+    background-color: #2f7572;
+}
+.update-reviewer-container .file-name {
+    margin-top: 0.5rem;
+    color: #FDFDFD;
+}
+
+/* updateReviewForm page styling */
+.update-review-container {
+    max-width: 600px;
+    margin: 50 auto;
+    padding: 2rem;
+    background-color: #45ADA8;
+    border: 3px solid #258682;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.update-review-container label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+.update-review-container #id_review_message,
+.update-review-container #id_review_score {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 2px solid #258682;
+    border-radius: 5px;
+    transition: border-color 0.2s;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+.update-review-container #id_review_message:focus,
+.update-review-container #id_review_score:focus {
+    border-color: #547980;
+    outline: none;
+}
+.update-review-container .button {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    background-color: #258682;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-right: 10px;
+}
+.update-review-container .button:hover {
+    background-color: #1f6d61;
+}
+.update-review-container .cancel-button {
+    background-color: #d9534f;
+}
+.update-review-container .cancel-button:hover {
+    background-color: #c9302c;
+}
+.update-review-container #id_review_message {
+    resize: vertical;
+    min-height: 100px;
+}
+.update-review-container .form-fields {
+    margin-bottom: 1rem;
 }
