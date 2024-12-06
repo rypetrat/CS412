@@ -347,7 +347,7 @@ class ShowBestMovieView(ListView):
 
     def get_queryset(self):
         '''Returns highest 3 rated movies.'''
-        return Movie.objects.annotate(average_score=Avg('review__review_score')).order_by('-average_score')[:3]
+        return Movie.objects.annotate(average_score=Avg('review__review_score')).order_by('-average_score')
 
 class ShowRandomMovieView(ListView):
     '''Create a subclass of ListView to display a random Movie'''

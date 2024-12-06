@@ -18,7 +18,7 @@
                 <li class="nav-item"><a href="{% url 'show_all_reviewers' %}">All Reviewers</a></li>
                 <li class="nav-item"><a href="{% url 'show_all_reviews' %}">All Reviews</a></li>
                 <li class="nav-item"><a href="{% url 'add_movie' %}">Add Movie</a></li>
-                <li class="nav-item"><a href="{% url 'top_3_movies' %}">Top 3 Movies</a></li>
+                <li class="nav-item"><a href="{% url 'top_3_movies' %}">Top Rated Movies</a></li>
                 <li class="nav-item"><a href="{% url 'random_movie' %}">Random Movie</a></li>
                 <!-- only show the links that need an authenticated user if signed in -->
                 {% if request.user.is_authenticated %}
