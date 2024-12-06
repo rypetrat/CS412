@@ -1,3 +1,4 @@
+import random
 from .forms import *
 from .models import *
 from django.urls import reverse
@@ -333,3 +334,34 @@ class ReviewerListView(ListView):
         context = super().get_context_data(**kwargs)
         context['form'] = ReviewerFilterForm(self.request.GET or None)
         return context
+    
+class ShowBestMovieView(ListView):
+    '''Create a subclass of ListView to display the top 3 rated Movies'''
+    model = Movie
+    template_name = 'movie_review/top_3_movies.html'
+    context_object_name = 'movies'
+
+    def dispatch(self, *args, **kwargs):
+        print(f"self.request.user={self.request.user}")
+        return super().dispatch(*args, **kwargs)
+
+    def get_queryset(self):
+        '''Returns highest 3 rated movies.'''
+        return Movie.objects.annotate(average_score=Avg('review__review_score')).order_by('-average_score')[:3]
+
+class ShowRandomMovieView(ListView):
+    '''Create a subclass of ListView to display a random Movie'''
+    model = Movie
+    template_name = 'movie_review/show_movie.html'
+    context_object_name = 'movie'
+
+    def dispatch(self, *args, **kwargs):
+        print(f"self.request.user={self.request.user}")
+        return super().dispatch(*args, **kwargs)
+
+    def get_queryset(self):
+        '''Returns a random movie.'''
+        movie_ids = Movie.objects.values_list('id', flat=True)
+        random_id = random.choice(movie_ids)
+        return Movie.objects.get(id=random_id)
+        

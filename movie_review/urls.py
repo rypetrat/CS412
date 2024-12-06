@@ -6,6 +6,8 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     path(r'', ShowAllMovieView.as_view(), name='show_all'), # shows all movies
     path(r'movie/<int:pk>/', MoviePageView.as_view(), name='movie'), # shows a single movie
+    path(r'top_3_movies/', ShowBestMovieView.as_view(), name='top_3_movies'), # shows the top 3 rated movies
+    path(r'random_movie/', ShowRandomMovieView.as_view(), name='random_movie'), # shows a random movie
     path(r'movie_search/', MovieListView.as_view(), name='movie_search'), # form for searching for a movie
     path(r'reviewer_search/', ReviewerListView.as_view(), name='reviewer_search'), # form for searching for a reviewer
     path(r'reviewers/', ShowAllReviewerView.as_view(), name='show_all_reviewers'), # shows all reviewers

@@ -602,9 +602,7 @@ a:hover {
     outline: none;
 }
 .add-movie-container input[type="file"] {
-    display: block;
-    margin-top: 0.5rem;
-    font-size: 1rem;
+    display: none;
 }
 .add-movie-container input[type="submit"] {
     width: 100%;
@@ -1164,4 +1162,70 @@ hr {
 }
 .update-review-container .form-fields {
     margin-bottom: 1rem;
+}
+
+
+/* top3Movies page styling */
+.top-movies-container {
+    max-width: 1100px;
+    margin: 30 auto;
+    padding: 20px;
+    background-color: #9DE0AD;
+    border-radius: 10px;
+    border: 3px solid #258682;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+.top-movies-container h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+.movie-list {
+    list-style: none;
+    padding: 0;
+}
+.movie-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-bottom: 1px solid #2f7572;
+}
+.movie-rank {
+    font-size: 3em;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    width: 60px;
+}
+.movie-poster {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.movie-poster img {
+    max-width: 150px;
+    border-radius: 8px;
+    border: 3px solid #FDFDFD;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+.movies-details {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    border: 2px solid #258682;
+    padding: 20px;
+    border-radius: 20px;
+    background-color: #E5FCC2;
+    color: #547980;
+}
+.movies-details h2 {
+    margin-top: 0;
+    font-size: 1.5em;
+    color: #000;
+}
+.movies-details p {
+    margin: 5px 0;
+}
+.movies-details strong {
+    color: #000;
 }
