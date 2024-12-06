@@ -3,12 +3,14 @@
 
 <div class="container-watchlist-add">
     <h1>Add Movie to Watchlist</h1>
+    <!-- Renders the form for adding a movie to their watchlist -->
     <form action="" method="POST" enctype="multipart/form-data" class="form-watchlist-add">
         {% csrf_token %}
         <div class="form-group-watchlist-add">
             {{ form.movie }}
         </div>
 
+        <!-- Renders the submit button -->
         <div class="form-group-watchlist-add">
             <input type="submit" value="Add Movie" class="btn-submit-watchlist-add">
         </div>

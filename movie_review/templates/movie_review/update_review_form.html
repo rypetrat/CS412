@@ -5,12 +5,15 @@
     <h1 class="black-text">Update Review</h1>
     <form method="POST" action="">
         {% csrf_token %}
+        <!-- render the form as paragraphs -->
         {{ form.as_p }}
         <div class="form-buttons">
+            <!-- render the submit button -->
             <input type="submit" value="Update" class="button">
         </div>
     </form>
     <form method="get" action="{% url 'reviewer' review.reviewer.pk %}">
+        <!-- render the cancel button -->
         <button type="submit" class="button cancel-button">Cancel</button>
     </form>
 </div>

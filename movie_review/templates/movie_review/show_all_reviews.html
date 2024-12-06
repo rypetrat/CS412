@@ -10,10 +10,13 @@
         {% for r in reviews %}
         <article class="reviews-entry">
             <h2> 
+                <!-- link back to own reviewer page -->
                 <a href="{% url 'reviewer' r.reviewer.pk %}"> {{ r.reviewer }}'s</a>
                 review of 
+                <!-- link back to its own movie page -->
                 <a href="{% url 'movie' r.movie.pk %}"> {{ r.movie }} </a>
             </h2>
+            <!-- show the review's information -->
             <h3>
                 Score: {{r.review_score}}/5 <br>
                 Review: {{r.review_message}} <br>

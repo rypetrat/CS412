@@ -17,6 +17,7 @@ class ShowAllMovieView(ListView):
     context_object_name = 'movies'
 
     def dispatch(self, *args, **kwargs):
+        # Print the current user making the request to the console for debugging
         print(f"self.request.user={self.request.user}")
         return super().dispatch(*args, **kwargs)
 
@@ -42,6 +43,7 @@ class ShowAllReviewerView(ListView):
     context_object_name = 'reviewers'
 
     def dispatch(self, *args, **kwargs):
+        # Print the current user making the request to the console for debugging
         print(f"self.request.user={self.request.user}")
         return super().dispatch(*args, **kwargs)
     
@@ -62,6 +64,7 @@ class ShowAllReviewView(ListView):
     context_object_name = 'reviews'
 
     def dispatch(self, *args, **kwargs):
+        # Print the current user making the request to the console for debugging
         print(f"self.request.user={self.request.user}")
         return super().dispatch(*args, **kwargs)
     
@@ -77,6 +80,7 @@ class CreateReviewerView(CreateView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        # Add a new, empty UserCreationForm instance to the context
         context['user_creation_form'] = UserCreationForm()
         return context
 
@@ -112,6 +116,7 @@ class CreateMovieView(CreateView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        # Add a new empty UserCreationForm to the context for rendering
         context['user_creation_form'] = UserCreationForm()
         return context
 
@@ -206,16 +211,20 @@ class UpdateReviewerView(LoginRequiredMixin, UpdateView):
     template_name = 'movie_review/update_reviewer_form.html'
 
     def get_object(self):
+        # Retrieve the Reviewer object associated with the current user
         return get_object_or_404(Reviewer, user=self.request.user)
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        # Retrieve the reviewer object
         reviewer = self.get_object()  
+        # Add the first name and last name of the reviewer to the context
         context['first_name'] = reviewer.first_name  
         context['last_name'] = reviewer.last_name
         return context
 
     def get_success_url(self):
+        '''Redirect to reviewer's page upon successfully updating their profile.'''
         return reverse('reviewer', kwargs={'pk': self.object.pk})
 
 class DeleteReviewView(LoginRequiredMixin, DeleteView):
@@ -225,6 +234,7 @@ class DeleteReviewView(LoginRequiredMixin, DeleteView):
     context_object_name = 'review'
 
     def get_success_url(self):
+        '''Redirect to reviewer's page upon sucessfully deleteing a review'''
         reviewer = get_object_or_404(Reviewer, user=self.request.user)
         return reverse('reviewer', kwargs={'pk': reviewer.pk})
 
@@ -236,9 +246,11 @@ class UpdateReviewView(LoginRequiredMixin, UpdateView):
     context_object_name = 'review'
 
     def get_object(self, queryset=None):
+        '''Retrieve the Review object based on the pk parameter from the URL'''
         return get_object_or_404(Review, pk=self.kwargs['pk'])
 
     def get_success_url(self):
+        '''Redirect to reviewer's page upon sucessfully updating a review'''
         return reverse('reviewer', kwargs={'pk': self.get_object().reviewer.pk})
     
 class DeleteWatchlistView(LoginRequiredMixin, DeleteView):
@@ -248,6 +260,7 @@ class DeleteWatchlistView(LoginRequiredMixin, DeleteView):
     context_object_name = 'watchlist'
 
     def get_success_url(self):
+        '''Redirect to reviewer's page upon sucessfully deleting a watchlist entry'''
         reviewer = get_object_or_404(Reviewer, user=self.request.user)
         return reverse('reviewer', kwargs={'pk': reviewer.pk})
     
@@ -259,6 +272,7 @@ class UpdateMovieView(UpdateView):
     context_object_name = 'movie'
 
     def get_success_url(self):
+        '''Redirect to a movie's page upon sucessfully updating it'''
         return reverse('movie', kwargs={'pk': self.object.pk})
     
 class MovieListView(ListView):
@@ -306,8 +320,10 @@ class MovieListView(ListView):
         return queryset.distinct()
     
     def get_context_data(self, **kwargs):
+        # Call the parent class's get_context_data method to get the context
         context = super().get_context_data(**kwargs)
-        context['form'] = MovieFilterForm(self.request.GET or None)
+        # The form is populated with data from the GET request
+        context['form'] = ReviewerFilterForm(self.request.GET or None)
         return context
     
 class ReviewerListView(ListView):
@@ -331,18 +347,22 @@ class ReviewerListView(ListView):
         return queryset
 
     def get_context_data(self, **kwargs):
+        # Call the parent class's get_context_data method to get the context
         context = super().get_context_data(**kwargs)
+        # The form is populated with data from the GET request
         context['form'] = ReviewerFilterForm(self.request.GET or None)
         return context
     
 class ShowBestMovieView(ListView):
-    '''Create a subclass of ListView to display the top 3 rated Movies'''
+    '''Create a subclass of ListView to display the top rated Movies.'''
     model = Movie
     template_name = 'movie_review/top_3_movies.html'
     context_object_name = 'movies'
 
     def dispatch(self, *args, **kwargs):
+        # Print the current user making the request to the console for debugging
         print(f"self.request.user={self.request.user}")
+        # Handle the request
         return super().dispatch(*args, **kwargs)
 
     def get_queryset(self):
@@ -356,7 +376,9 @@ class ShowRandomMovieView(ListView):
     context_object_name = 'movie'
 
     def dispatch(self, *args, **kwargs):
+        # Print the current user making the request to the console for debugging
         print(f"self.request.user={self.request.user}")
+        # Handle the request
         return super().dispatch(*args, **kwargs)
 
     def get_queryset(self):
@@ -364,4 +386,3 @@ class ShowRandomMovieView(ListView):
         movie_ids = Movie.objects.values_list('id', flat=True)
         random_id = random.choice(movie_ids)
         return Movie.objects.get(id=random_id)
-        

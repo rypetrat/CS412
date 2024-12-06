@@ -23,15 +23,17 @@
         </div>
 
         <div class="form-buttons">
+            <!-- render submit button -->
             <input type="submit" value="Update Profile" class="button">
         </div>
     </form>
     <form method="get" action="{% url 'reviewer' reviewer.pk %}">
+        <!-- render cancel button -->
         <button type="submit" class="button cancel-button">Cancel</button>
     </form>
 </div>
 
-<!-- added Javascript for the uploded file name -->
+<!-- Javascript for the uploded file name -->
 {% block extra_js %}
 <script>
     document.addEventListener("DOMContentLoaded", function () {

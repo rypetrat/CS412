@@ -2,7 +2,7 @@
 {% block content %}
 
 <div class="form-container register-reviewer">
-    <!-- Header -->
+    <!-- Page Header -->
     <div class="reviewer-text">
         <h1>Register Reviewer</h1>
     </div>
@@ -14,14 +14,17 @@
             <h2>Reviewer Details</h2>
         </div>
         <div>
+            <!-- Render the first name input field from the form -->
             <label for="id_first_name">First Name:</label>
             {{ form.first_name }}
         </div>
         <div>
+            <!-- Render the last name input field from the form -->
             <label for="id_last_name">Last Name:</label>
             {{ form.last_name }}
         </div>
         <div>
+            <!-- Render the email input field from the form -->
             <label for="id_email">Email:</label>
             {{ form.email }}
         </div>
@@ -38,25 +41,28 @@
             <h2>Account Information</h2>
         </div>
         <div>
+            <!-- Render the username input field from the form -->
             <label for="id_username">Username:</label>
             {{ user_creation_form.username }}
         </div>
         <div>
+            <!-- Render the first password input field from the form -->
             <label for="id_password1">Password:</label>
             {{ user_creation_form.password1 }}
         </div>
         <div>
+            <!-- Render the second password input field from the form -->
             <label for="id_password2">Confirm Password:</label>
             {{ user_creation_form.password2 }}
         </div>
-        <!-- Submit button -->
+        <!-- Render the Submit button -->
         <div>
             <input type="submit" value="Create Reviewer">
         </div>
     </form>
 </div>
 
-<!-- added Javascript for the uploded file name -->
+<!-- Javascript for the uploded file name -->
 {% block extra_js %}
 <script>
     // Show the selected file's name when a file is chosen

@@ -1,16 +1,23 @@
 {% load static %}
 <html>
     <head>
+        <!-- changes the tabbar name -->
         <title>Reviews & Ratings</title>
+        <!-- links the imported google font used -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Anuphan">
+        <!-- defines the css stylesheet used -->
         <link rel="stylesheet" href="/static/finalProjectStyles.css">
+        <!-- changes the favicon -->
+        <link rel="icon" href="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn4.iconfinder.com%2Fdata%2Ficons%2Fmutuline-multimedia%2F48%2Fmovie_clipboard_director_cinema_clapperboards-512.png&f=1&nofb=1&ipt=b4e4fe9011a42e5f12bb0a3f1edea093d9a76a513a1376f5a2d911df681bb141&ipo=images" type="image/x-icon">
     </head>
     
     <body>
+        <!-- Page header -->
         <header>
             <h1>Movie Ratings & Reviews</h1>
         </header>
 
+        <!-- NavBar -->
         <nav class="navbar">
             <ul class="navbar-nav">
                 <!-- these links do not require a user to be signed in -->
@@ -20,7 +27,7 @@
                 <li class="nav-item"><a href="{% url 'add_movie' %}">Add Movie</a></li>
                 <li class="nav-item"><a href="{% url 'top_3_movies' %}">Top Rated Movies</a></li>
                 <li class="nav-item"><a href="{% url 'random_movie' %}">Random Movie</a></li>
-                <!-- only show the links that need an authenticated user if signed in -->
+                <!-- only show theses links that need an authenticated user to be signed in to use properly -->
                 {% if request.user.is_authenticated %}
                     <li class="nav-item"><a href="{% url 'create_review' %}">Create New Review</a></li>
                     <li class="nav-item"><a href="{% url 'add_to_watchlist' %}">Add to Watchlist</a></li>
@@ -29,11 +36,14 @@
                         {% csrf_token %}
                     </form></li>
                 {% else %}
+                    <!-- only show theses links that need an authenticated user to not be signed in to use -->
                     <li class="nav-item"><a href="{% url 'create_reviewer' %}">Register Reviewer</a></li>
                     <li class="nav-item"><a href="{% url 'login' %}" class="nav-link">Login</a></li>
                 {% endif %}
+                <!-- Show the logged in user in the navbar if logged in -->
                 <li class="nav-item user-info">
-                    {% if request.user.is_authenticated %} <span>Logged in: {{ request.user }}</span> {% else %} Not logged in.{% endif %}</li>
+                    {% if request.user.is_authenticated %} <span>Logged in: {{ request.user }}</span> {% else %} Not logged in.{% endif %}
+                </li>
             </ul>
         </nav>
     {% block content %}

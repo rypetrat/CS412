@@ -2,9 +2,9 @@
 {% block content %}
 
 <main class="grid-container">
-    <!-- Contains the link to send to the search for movies page -->
     <div>
         <h1 class="all-movies">All Movies:</h1>
+        <!-- link to search for movies -->
         <strong><a class="movie-edit" href="{% url 'movie_search' %}">Search for Movies</a></strong>
     </div>
     
@@ -12,14 +12,17 @@
     <div class="movies-grid">
         {% for m in movies %}
         <article class="movies-entry">
+            <!-- link back to its own movie page -->
             <a href="{% url 'movie' m.pk %}">
                 <h2>{{m.title}}</h2>
             </a>
             {% if m.poster_img %}
+                <!-- link back to its own movie page -->
                 <a href="{% url 'movie' m.pk %}">
                     <img src="{{ m.poster_img.url }}" alt="Poster Image" class="movies-poster">
                 </a>
             {% endif %}
+            <!-- show a brief overview of movie information -->
             <h3>
                 Reviewer's Score: {{ m.average_rating|floatformat:2 }} / 5 <br>
                 Rating: {{m.rating}} <br>

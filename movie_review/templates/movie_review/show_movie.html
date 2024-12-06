@@ -34,10 +34,12 @@
         <h2>Reviews:</h2>
         {% for m in movie.get_reviews %}
         <div class="review-entry">
+            <!-- link back to reviewer page -->
             <strong><a class="reviewer-edit" href="{% url 'reviewer' m.reviewer.pk %}">{{m.reviewer}}'s</a></strong> Review [{{m.review_score}}/5]: "{{ m.review_message }}" at {{ m.review_date }}
         </div>
         {% empty %}
-        <p>No reviews.</p>
+            <!-- display if empty -->
+            <p>No reviews.</p>
         {% endfor %}
     </div>
 
@@ -46,12 +48,14 @@
         <h2>Reviewers who have watched:</h2>
         {% for w in movie.get_watched %}
         <div class="watchlist-entry">
+            <!-- link back to reviewer page -->
             <a class="reviewer-edit-movie" href="{% url 'reviewer' w.pk %}">
                 <strong>{{w.first_name}} {{w.last_name}}</strong>
             </a>
         </div>
         {% empty %}
-        <p>Nobody has Watched.</p>
+            <!-- display if empty -->
+            <p>Nobody has Watched.</p>
         {% endfor %}
     </div>
 </main>

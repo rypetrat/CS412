@@ -32,8 +32,10 @@
         <article class="review-entry">
             <div>
                 <strong><a href="{% url 'movie' r.movie.pk %}">{{r.movie}}</a></strong> [{{r.review_score}}/5]: "{{ r.review_message }}" at {{ r.review_date }}
+                <!-- If signed in and on own profile allow to update or delete reviews -->
                 {% if request.user.is_authenticated and request.user == reviewer.user %}
                     <div class="action-links-review">
+                        <!-- render the update and delete options for reviews -->
                         <strong><a href="{% url 'delete_review' r.pk %}">Delete Review</a></strong>
                         <strong><a href="{% url 'update_review' r.pk %}">Update Review</a></strong>
                     </div>
@@ -41,7 +43,8 @@
             </div>
         </article>
         {% empty %}
-        <p>No reviews to display.</p>
+            <!-- show if empty -->
+            <p>No reviews to display.</p>
         {% endfor %}
     </div>
 
@@ -51,7 +54,9 @@
         {% for w in reviewer.get_watchlist %}
         <article class="watchlist-entry">
             <div>
+                <!-- link back to movie's page -->
                 <strong><a href="{% url 'movie' w.movie.pk %}">{{w.movie}}</a></strong>
+                <!-- If signed in and on own profile allow to delete from watchlist -->
                 {% if request.user.is_authenticated and request.user == reviewer.user %}
                     <div class="action-links-watchlist">
                         <strong><a href="{% url 'delete_watchlist' w.pk %}">Remove</a></strong>
@@ -60,7 +65,8 @@
             </div>
         </article>
         {% empty %}
-        <p>No Movies Watched.</p>
+            <!-- show if empty -->
+            <p>No Movies Watched.</p>
         {% endfor %}
     </div>
 </main>

@@ -4,12 +4,15 @@
 <div class="form-container reviewer-filters">
   <h1 class="reviewer-text">Reviewer Filters</h1>
   <form class="black-text" method="get">
+    <!-- Renders the filter form fields as paragraphs -->
     {{ form.as_p }}
+    <!-- Renders the submit button to apply filters -->
     <button type="submit">Filter</button>
   </form>
   
   <h1 class="reviewer-text">Reviewer List</h1>
   <table>
+    <!-- Table headers for each column -->
     <thead>
       <tr>
         <th class="black-text">Name</th>
@@ -17,10 +20,13 @@
     </thead>
     <tbody>
       {% for reviewer in reviewers %}
+        <!-- Table row for each reviewer in the resulting query -->
         <tr>
+          <!-- Link the reviewers name back to their own profile -->
           <td><a class="reviewer-edit" href="{% url 'reviewer' reviewer.pk %}"><strong>{{ reviewer.first_name }} {{ reviewer.last_name }}</strong></a></td>
         </tr>
       {% empty %}
+        <!-- If no movies are found after applying filters, show this -->
         <tr>
           <td colspan="5">No reviewers found matching the criteria.</td>
         </tr>

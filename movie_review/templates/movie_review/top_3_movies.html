@@ -7,12 +7,16 @@
         {% for movie in movies %}
             <li class="movie-item">
                 <div class="movie-rank">
+                    <!-- for the number ranking next to each movie -->
                     <span>{{ forloop.counter }}.</span>
                 </div>
                 <div class="movie-poster">
+                    <!-- link back to movie's page -->
                     <a href="{% url 'movie' movie.pk %}"><img src="{{ movie.poster_img.url }}" alt="{{ movie.title }} poster"></a>
                 </div>
+                <!-- display movie's information -->
                 <div class="movies-details">
+                    <!-- link back to movie's page -->
                     <a href="{% url 'movie' movie.pk %}"><h2>{{ movie.title }}</h2></a>
                     <p><strong>Review Score:</strong> {{ movie.average_score|floatformat:2 }}</p>
                     <p><strong>Genre:</strong> {{ movie.genre }}</p>

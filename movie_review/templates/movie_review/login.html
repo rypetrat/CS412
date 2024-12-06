@@ -3,6 +3,7 @@
 
 <div class="form-container login">
     <h1>Login to your Reviewer Account</h1>
+    <!-- Renders the login form -->
     <form method="post" action="{% url 'login' %}">
         {% csrf_token %}
         {{ form }}

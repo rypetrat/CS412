@@ -2,6 +2,7 @@
 {% block content %}
 
 <div class="delete-review-container">
+    <!-- Render text to the user showing their review -->
     <div>
         <h1>Delete Review</h1>
         <h3>
@@ -11,12 +12,15 @@
     </div>
     
     <div>
+        <!-- Render the form to confirm the deletion of the review -->
         <form method="POST" action="">
             {% csrf_token %}
+            <!-- Render the submit button -->
             <input type="submit" value="Confirm Delete" class="button">
         </form>
         
         <form method="get" action="{% url 'reviewer' review.reviewer.pk %}">
+            <!-- Render the cancel button -->
             <input type="submit" value="Cancel" class="button"> 
         </form>
     </div>

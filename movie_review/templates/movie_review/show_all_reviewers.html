@@ -4,6 +4,7 @@
 <main class="grid-container">
     <div>
         <h1 class="all-reviewers">All Reviewers:</h1>
+        <!-- link to search for reviewers -->
         <strong><a class="reviewer-edit" href="{% url 'reviewer_search' %}">Search for Reviewers</a></strong>
     </div>
     
@@ -11,14 +12,17 @@
     <div class="reviewers-grid">
         {% for r in reviewers %}
         <article class="reviewers-entry">
+            <!-- link back to own reviewer page -->
             <a href="{% url 'reviewer' r.pk %}">
                 <h2>{{r.first_name}} {{r.last_name}}</h2>
             </a>
             {% if r.profile_img %}
+                <!-- link back to own reviewer page -->
                 <a href="{% url 'reviewer' r.pk %}">
                     <img src="{{ r.profile_img.url }}" alt="Profile Image" class="reviewers-pfp">
                 </a>
             {% endif %}
+            <!-- show a brief overview of reviewer information -->
             <h3>
                 Average Review Score: {{ r.average_rating|floatformat:2 }} / 5 <br>
                 Email: {{r.email}} 
