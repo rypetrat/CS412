@@ -219,7 +219,8 @@ a:hover {
     display: flex;
     gap: 20px;
     align-items: center;
-    border: 2px solid #ddd;
+    border: 5px solid #9DE0AD;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     padding: 20px;
     border-radius: 8px;
     background-color: #E5FCC2;
@@ -244,6 +245,8 @@ a:hover {
     font-size: 36px;
     margin-bottom: 10px;
     color: #E5FCC2;
+    border: 3px solid #9DE0AD;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 .movie-rating {
     background: #594F4F;
@@ -251,6 +254,8 @@ a:hover {
     border-radius: 12px;
     font-size: 18px;
     color: #E5FCC2;
+    border: 3px solid #9DE0AD;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 .info-section {
     background: #594F4F;
@@ -260,6 +265,8 @@ a:hover {
     font-size: 20px;
     line-height: 1.5;
     color: #E5FCC2;
+    border: 3px solid #9DE0AD;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 .info-section p {
     margin: 20px 10;
