@@ -356,7 +356,7 @@ class ReviewerListView(ListView):
 class ShowBestMovieView(ListView):
     '''Create a subclass of ListView to display the top rated Movies.'''
     model = Movie
-    template_name = 'movie_review/top_3_movies.html'
+    template_name = 'movie_review/top_movies.html'
     context_object_name = 'movies'
 
     def dispatch(self, *args, **kwargs):
