@@ -323,7 +323,7 @@ class MovieListView(ListView):
         # Call the parent class's get_context_data method to get the context
         context = super().get_context_data(**kwargs)
         # The form is populated with data from the GET request
-        context['form'] = ReviewerFilterForm(self.request.GET or None)
+        context['form'] = MovieFilterForm(self.request.GET or None)
         return context
     
 class ReviewerListView(ListView):
